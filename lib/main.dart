@@ -1,15 +1,20 @@
-
-
-import 'package:flutter/material.dart';
-import 'package:flutter_cart/flutter_cart.dart';
-import 'package:food_app/ui/admin/admin_page.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:food_app/ui/screens/detail_dish_page.dart';
+import 'package:food_app/ui/screens/home_page.dart';
+import 'package:food_app/ui/screens/signin_page.dart';
+import 'package:food_app/ui/screens/updatePassword_screen.dart';
+import 'firebase_options.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:food_app/onboarding_screen.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  var cart = FlutterCart();
-  await cart.initializeCart(isPersistenceSupportEnabled: true);
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   runApp(const MyApp());
 
@@ -20,10 +25,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Onboarding Screen',
-      home: DetailDish(),
-      debugShowCheckedModeBanner: false,
+    return ScreenUtilInit(
+      designSize: const Size(360, 640),
+      builder: (BuildContext context, Widget? _) => MaterialApp(
+        title: 'Onboarding Screen',
+        home: HomePage(),
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }

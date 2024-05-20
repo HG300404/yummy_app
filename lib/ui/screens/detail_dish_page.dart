@@ -108,128 +108,4391 @@ class _DetailDishState extends State<DetailDish>
                                   blurRadius: 8,
                                 )
                               ]),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.all(10),
-                                child: Image.asset(
-                                  "assets/images/address.png",
-                                  height: 60,
-                                  width: 60,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              Container(
-                                child: Column(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Container(
-                                      margin:
-                                          EdgeInsets.only(top: 10, bottom: 2),
-                                      child: Text(
-                                        "Item title",
-                                        style: TextStyle(
-                                            color: Constants.primaryColor,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 22),
+                                    Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: Image.asset(
+                                        "assets/images/address.png",
+                                        height: 60,
+                                        width: 60,
+                                        fit: BoxFit.cover,
                                       ),
                                     ),
                                     Container(
-                                      child: Text(
-                                        "10.000đ",
-                                        style: TextStyle(
-                                            color: Constants.primaryColor,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 20),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Container(
+                                            margin:
+                                            EdgeInsets.only(top: 10, bottom: 2),
+                                            child: Text(
+                                              "Item title",
+                                              style: TextStyle(
+                                                  color: Constants.primaryColor,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 22),
+                                            ),
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              "10.000đ",
+                                              style: TextStyle(
+                                                  color: Constants.primaryColor,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20),
+                                            ),
+                                          )
+                                        ],
                                       ),
+                                    ),
+                                    Spacer(),
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(horizontal: 10),
+                                      child: Row(
+                                        // mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              padding: EdgeInsets.all(4),
+                                              margin: EdgeInsets.only(top: 30),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                  BorderRadius.circular(20),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                        color: Colors.grey
+                                                            .withOpacity(0.5),
+                                                        spreadRadius: 2,
+                                                        blurRadius: 8)
+                                                  ]),
+                                              child: GestureDetector(
+                                                onTap: onDecrement,
+                                                child: Icon(
+                                                  CupertinoIcons.minus,
+                                                  size: 20,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                              child: Text(
+                                                "10",
+                                                style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                            ),
+                                            Container(
+                                              padding: EdgeInsets.all(5),
+                                              margin: EdgeInsets.only(top: 30),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                  BorderRadius.circular(20),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                        color: Colors.grey
+                                                            .withOpacity(0.5),
+                                                        spreadRadius: 2,
+                                                        blurRadius: 8)
+                                                  ]),
+                                              child: GestureDetector(
+                                                onTap: onIncrement,
+                                                child: Icon(
+                                                  CupertinoIcons.add,
+                                                  size: 20,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                ),
+                                              ),
+                                            ),
+                                          ]),
                                     )
                                   ],
                                 ),
-                              ),
-                              Spacer(),
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                child: Row(
-                                    // mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Container(
-                                        padding: EdgeInsets.all(4),
-                                        margin: EdgeInsets.only(top: 30),
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: Colors.grey
-                                                      .withOpacity(0.5),
-                                                  spreadRadius: 2,
-                                                  blurRadius: 8)
-                                            ]),
-                                        child: GestureDetector(
-                                          onTap: onDecrement,
-                                          child: Icon(
-                                            CupertinoIcons.minus,
-                                            size: 20,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .primary,
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: Image.asset(
+                                        "assets/images/address.png",
+                                        height: 60,
+                                        width: 60,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Container(
+                                            margin:
+                                            EdgeInsets.only(top: 10, bottom: 2),
+                                            child: Text(
+                                              "Item title",
+                                              style: TextStyle(
+                                                  color: Constants.primaryColor,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 22),
+                                            ),
                                           ),
-                                        ),
+                                          Container(
+                                            child: Text(
+                                              "10.000đ",
+                                              style: TextStyle(
+                                                  color: Constants.primaryColor,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20),
+                                            ),
+                                          )
+                                        ],
                                       ),
-                                      Container(
-                                        margin: EdgeInsets.only(top: 30, left: 10, right: 10),
-                                        child: Text(
-                                          "10",
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold),
-                                        ),
+                                    ),
+                                    Spacer(),
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(horizontal: 10),
+                                      child: Row(
+                                        // mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              padding: EdgeInsets.all(4),
+                                              margin: EdgeInsets.only(top: 30),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                  BorderRadius.circular(20),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                        color: Colors.grey
+                                                            .withOpacity(0.5),
+                                                        spreadRadius: 2,
+                                                        blurRadius: 8)
+                                                  ]),
+                                              child: GestureDetector(
+                                                onTap: onDecrement,
+                                                child: Icon(
+                                                  CupertinoIcons.minus,
+                                                  size: 20,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                              child: Text(
+                                                "10",
+                                                style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                            ),
+                                            Container(
+                                              padding: EdgeInsets.all(5),
+                                              margin: EdgeInsets.only(top: 30),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                  BorderRadius.circular(20),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                        color: Colors.grey
+                                                            .withOpacity(0.5),
+                                                        spreadRadius: 2,
+                                                        blurRadius: 8)
+                                                  ]),
+                                              child: GestureDetector(
+                                                onTap: onIncrement,
+                                                child: Icon(
+                                                  CupertinoIcons.add,
+                                                  size: 20,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                ),
+                                              ),
+                                            ),
+                                          ]),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: Image.asset(
+                                        "assets/images/address.png",
+                                        height: 60,
+                                        width: 60,
+                                        fit: BoxFit.cover,
                                       ),
-                                      Container(
-                                        padding: EdgeInsets.all(5),
-                                        margin: EdgeInsets.only(top: 30),
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: Colors.grey
-                                                      .withOpacity(0.5),
-                                                  spreadRadius: 2,
-                                                  blurRadius: 8)
-                                            ]),
-                                        child: GestureDetector(
-                                          onTap: onIncrement,
-                                          child: Icon(
-                                            CupertinoIcons.add,
-                                            size: 20,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .primary,
+                                    ),
+                                    Container(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Container(
+                                            margin:
+                                            EdgeInsets.only(top: 10, bottom: 2),
+                                            child: Text(
+                                              "Item title",
+                                              style: TextStyle(
+                                                  color: Constants.primaryColor,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 22),
+                                            ),
                                           ),
-                                        ),
+                                          Container(
+                                            child: Text(
+                                              "10.000đ",
+                                              style: TextStyle(
+                                                  color: Constants.primaryColor,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20),
+                                            ),
+                                          )
+                                        ],
                                       ),
-                                    ]),
-                              )
-                            ],
-                          ),
-                        ),
+                                    ),
+                                    Spacer(),
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(horizontal: 10),
+                                      child: Row(
+                                        // mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              padding: EdgeInsets.all(4),
+                                              margin: EdgeInsets.only(top: 30),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                  BorderRadius.circular(20),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                        color: Colors.grey
+                                                            .withOpacity(0.5),
+                                                        spreadRadius: 2,
+                                                        blurRadius: 8)
+                                                  ]),
+                                              child: GestureDetector(
+                                                onTap: onDecrement,
+                                                child: Icon(
+                                                  CupertinoIcons.minus,
+                                                  size: 20,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                              child: Text(
+                                                "10",
+                                                style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                            ),
+                                            Container(
+                                              padding: EdgeInsets.all(5),
+                                              margin: EdgeInsets.only(top: 30),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                  BorderRadius.circular(20),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                        color: Colors.grey
+                                                            .withOpacity(0.5),
+                                                        spreadRadius: 2,
+                                                        blurRadius: 8)
+                                                  ]),
+                                              child: GestureDetector(
+                                                onTap: onIncrement,
+                                                child: Icon(
+                                                  CupertinoIcons.add,
+                                                  size: 20,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                ),
+                                              ),
+                                            ),
+                                          ]),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: Image.asset(
+                                        "assets/images/address.png",
+                                        height: 60,
+                                        width: 60,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Container(
+                                            margin:
+                                            EdgeInsets.only(top: 10, bottom: 2),
+                                            child: Text(
+                                              "Item title",
+                                              style: TextStyle(
+                                                  color: Constants.primaryColor,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 22),
+                                            ),
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              "10.000đ",
+                                              style: TextStyle(
+                                                  color: Constants.primaryColor,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    Spacer(),
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(horizontal: 10),
+                                      child: Row(
+                                        // mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              padding: EdgeInsets.all(4),
+                                              margin: EdgeInsets.only(top: 30),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                  BorderRadius.circular(20),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                        color: Colors.grey
+                                                            .withOpacity(0.5),
+                                                        spreadRadius: 2,
+                                                        blurRadius: 8)
+                                                  ]),
+                                              child: GestureDetector(
+                                                onTap: onDecrement,
+                                                child: Icon(
+                                                  CupertinoIcons.minus,
+                                                  size: 20,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                              child: Text(
+                                                "10",
+                                                style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                            ),
+                                            Container(
+                                              padding: EdgeInsets.all(5),
+                                              margin: EdgeInsets.only(top: 30),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                  BorderRadius.circular(20),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                        color: Colors.grey
+                                                            .withOpacity(0.5),
+                                                        spreadRadius: 2,
+                                                        blurRadius: 8)
+                                                  ]),
+                                              child: GestureDetector(
+                                                onTap: onIncrement,
+                                                child: Icon(
+                                                  CupertinoIcons.add,
+                                                  size: 20,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                ),
+                                              ),
+                                            ),
+                                          ]),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: Image.asset(
+                                        "assets/images/address.png",
+                                        height: 60,
+                                        width: 60,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Container(
+                                            margin:
+                                            EdgeInsets.only(top: 10, bottom: 2),
+                                            child: Text(
+                                              "Item title",
+                                              style: TextStyle(
+                                                  color: Constants.primaryColor,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 22),
+                                            ),
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              "10.000đ",
+                                              style: TextStyle(
+                                                  color: Constants.primaryColor,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    Spacer(),
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(horizontal: 10),
+                                      child: Row(
+                                        // mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              padding: EdgeInsets.all(4),
+                                              margin: EdgeInsets.only(top: 30),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                  BorderRadius.circular(20),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                        color: Colors.grey
+                                                            .withOpacity(0.5),
+                                                        spreadRadius: 2,
+                                                        blurRadius: 8)
+                                                  ]),
+                                              child: GestureDetector(
+                                                onTap: onDecrement,
+                                                child: Icon(
+                                                  CupertinoIcons.minus,
+                                                  size: 20,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                              child: Text(
+                                                "10",
+                                                style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                            ),
+                                            Container(
+                                              padding: EdgeInsets.all(5),
+                                              margin: EdgeInsets.only(top: 30),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                  BorderRadius.circular(20),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                        color: Colors.grey
+                                                            .withOpacity(0.5),
+                                                        spreadRadius: 2,
+                                                        blurRadius: 8)
+                                                  ]),
+                                              child: GestureDetector(
+                                                onTap: onIncrement,
+                                                child: Icon(
+                                                  CupertinoIcons.add,
+                                                  size: 20,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                ),
+                                              ),
+                                            ),
+                                          ]),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: Image.asset(
+                                        "assets/images/address.png",
+                                        height: 60,
+                                        width: 60,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Container(
+                                            margin:
+                                            EdgeInsets.only(top: 10, bottom: 2),
+                                            child: Text(
+                                              "Item title",
+                                              style: TextStyle(
+                                                  color: Constants.primaryColor,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 22),
+                                            ),
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              "10.000đ",
+                                              style: TextStyle(
+                                                  color: Constants.primaryColor,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    Spacer(),
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(horizontal: 10),
+                                      child: Row(
+                                        // mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              padding: EdgeInsets.all(4),
+                                              margin: EdgeInsets.only(top: 30),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                  BorderRadius.circular(20),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                        color: Colors.grey
+                                                            .withOpacity(0.5),
+                                                        spreadRadius: 2,
+                                                        blurRadius: 8)
+                                                  ]),
+                                              child: GestureDetector(
+                                                onTap: onDecrement,
+                                                child: Icon(
+                                                  CupertinoIcons.minus,
+                                                  size: 20,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                              child: Text(
+                                                "10",
+                                                style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                            ),
+                                            Container(
+                                              padding: EdgeInsets.all(5),
+                                              margin: EdgeInsets.only(top: 30),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                  BorderRadius.circular(20),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                        color: Colors.grey
+                                                            .withOpacity(0.5),
+                                                        spreadRadius: 2,
+                                                        blurRadius: 8)
+                                                  ]),
+                                              child: GestureDetector(
+                                                onTap: onIncrement,
+                                                child: Icon(
+                                                  CupertinoIcons.add,
+                                                  size: 20,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                ),
+                                              ),
+                                            ),
+                                          ]),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: Image.asset(
+                                        "assets/images/address.png",
+                                        height: 60,
+                                        width: 60,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Container(
+                                            margin:
+                                            EdgeInsets.only(top: 10, bottom: 2),
+                                            child: Text(
+                                              "Item title",
+                                              style: TextStyle(
+                                                  color: Constants.primaryColor,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 22),
+                                            ),
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              "10.000đ",
+                                              style: TextStyle(
+                                                  color: Constants.primaryColor,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    Spacer(),
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(horizontal: 10),
+                                      child: Row(
+                                        // mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              padding: EdgeInsets.all(4),
+                                              margin: EdgeInsets.only(top: 30),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                  BorderRadius.circular(20),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                        color: Colors.grey
+                                                            .withOpacity(0.5),
+                                                        spreadRadius: 2,
+                                                        blurRadius: 8)
+                                                  ]),
+                                              child: GestureDetector(
+                                                onTap: onDecrement,
+                                                child: Icon(
+                                                  CupertinoIcons.minus,
+                                                  size: 20,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                              child: Text(
+                                                "10",
+                                                style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                            ),
+                                            Container(
+                                              padding: EdgeInsets.all(5),
+                                              margin: EdgeInsets.only(top: 30),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                  BorderRadius.circular(20),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                        color: Colors.grey
+                                                            .withOpacity(0.5),
+                                                        spreadRadius: 2,
+                                                        blurRadius: 8)
+                                                  ]),
+                                              child: GestureDetector(
+                                                onTap: onIncrement,
+                                                child: Icon(
+                                                  CupertinoIcons.add,
+                                                  size: 20,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                ),
+                                              ),
+                                            ),
+                                          ]),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: Image.asset(
+                                        "assets/images/address.png",
+                                        height: 60,
+                                        width: 60,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Container(
+                                            margin:
+                                            EdgeInsets.only(top: 10, bottom: 2),
+                                            child: Text(
+                                              "Item title",
+                                              style: TextStyle(
+                                                  color: Constants.primaryColor,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 22),
+                                            ),
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              "10.000đ",
+                                              style: TextStyle(
+                                                  color: Constants.primaryColor,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    Spacer(),
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(horizontal: 10),
+                                      child: Row(
+                                        // mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              padding: EdgeInsets.all(4),
+                                              margin: EdgeInsets.only(top: 30),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                  BorderRadius.circular(20),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                        color: Colors.grey
+                                                            .withOpacity(0.5),
+                                                        spreadRadius: 2,
+                                                        blurRadius: 8)
+                                                  ]),
+                                              child: GestureDetector(
+                                                onTap: onDecrement,
+                                                child: Icon(
+                                                  CupertinoIcons.minus,
+                                                  size: 20,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                              child: Text(
+                                                "10",
+                                                style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                            ),
+                                            Container(
+                                              padding: EdgeInsets.all(5),
+                                              margin: EdgeInsets.only(top: 30),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                  BorderRadius.circular(20),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                        color: Colors.grey
+                                                            .withOpacity(0.5),
+                                                        spreadRadius: 2,
+                                                        blurRadius: 8)
+                                                  ]),
+                                              child: GestureDetector(
+                                                onTap: onIncrement,
+                                                child: Icon(
+                                                  CupertinoIcons.add,
+                                                  size: 20,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                ),
+                                              ),
+                                            ),
+                                          ]),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: Image.asset(
+                                        "assets/images/address.png",
+                                        height: 60,
+                                        width: 60,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Container(
+                                            margin:
+                                            EdgeInsets.only(top: 10, bottom: 2),
+                                            child: Text(
+                                              "Item title",
+                                              style: TextStyle(
+                                                  color: Constants.primaryColor,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 22),
+                                            ),
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              "10.000đ",
+                                              style: TextStyle(
+                                                  color: Constants.primaryColor,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    Spacer(),
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(horizontal: 10),
+                                      child: Row(
+                                        // mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              padding: EdgeInsets.all(4),
+                                              margin: EdgeInsets.only(top: 30),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                  BorderRadius.circular(20),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                        color: Colors.grey
+                                                            .withOpacity(0.5),
+                                                        spreadRadius: 2,
+                                                        blurRadius: 8)
+                                                  ]),
+                                              child: GestureDetector(
+                                                onTap: onDecrement,
+                                                child: Icon(
+                                                  CupertinoIcons.minus,
+                                                  size: 20,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                              child: Text(
+                                                "10",
+                                                style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                            ),
+                                            Container(
+                                              padding: EdgeInsets.all(5),
+                                              margin: EdgeInsets.only(top: 30),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                  BorderRadius.circular(20),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                        color: Colors.grey
+                                                            .withOpacity(0.5),
+                                                        spreadRadius: 2,
+                                                        blurRadius: 8)
+                                                  ]),
+                                              child: GestureDetector(
+                                                onTap: onIncrement,
+                                                child: Icon(
+                                                  CupertinoIcons.add,
+                                                  size: 20,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                ),
+                                              ),
+                                            ),
+                                          ]),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: Image.asset(
+                                        "assets/images/address.png",
+                                        height: 60,
+                                        width: 60,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Container(
+                                            margin:
+                                            EdgeInsets.only(top: 10, bottom: 2),
+                                            child: Text(
+                                              "Item title",
+                                              style: TextStyle(
+                                                  color: Constants.primaryColor,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 22),
+                                            ),
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              "10.000đ",
+                                              style: TextStyle(
+                                                  color: Constants.primaryColor,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    Spacer(),
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(horizontal: 10),
+                                      child: Row(
+                                        // mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              padding: EdgeInsets.all(4),
+                                              margin: EdgeInsets.only(top: 30),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                  BorderRadius.circular(20),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                        color: Colors.grey
+                                                            .withOpacity(0.5),
+                                                        spreadRadius: 2,
+                                                        blurRadius: 8)
+                                                  ]),
+                                              child: GestureDetector(
+                                                onTap: onDecrement,
+                                                child: Icon(
+                                                  CupertinoIcons.minus,
+                                                  size: 20,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                              child: Text(
+                                                "10",
+                                                style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                            ),
+                                            Container(
+                                              padding: EdgeInsets.all(5),
+                                              margin: EdgeInsets.only(top: 30),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                  BorderRadius.circular(20),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                        color: Colors.grey
+                                                            .withOpacity(0.5),
+                                                        spreadRadius: 2,
+                                                        blurRadius: 8)
+                                                  ]),
+                                              child: GestureDetector(
+                                                onTap: onIncrement,
+                                                child: Icon(
+                                                  CupertinoIcons.add,
+                                                  size: 20,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                ),
+                                              ),
+                                            ),
+                                          ]),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: Image.asset(
+                                        "assets/images/address.png",
+                                        height: 60,
+                                        width: 60,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Container(
+                                            margin:
+                                            EdgeInsets.only(top: 10, bottom: 2),
+                                            child: Text(
+                                              "Item title",
+                                              style: TextStyle(
+                                                  color: Constants.primaryColor,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 22),
+                                            ),
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              "10.000đ",
+                                              style: TextStyle(
+                                                  color: Constants.primaryColor,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    Spacer(),
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(horizontal: 10),
+                                      child: Row(
+                                        // mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              padding: EdgeInsets.all(4),
+                                              margin: EdgeInsets.only(top: 30),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                  BorderRadius.circular(20),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                        color: Colors.grey
+                                                            .withOpacity(0.5),
+                                                        spreadRadius: 2,
+                                                        blurRadius: 8)
+                                                  ]),
+                                              child: GestureDetector(
+                                                onTap: onDecrement,
+                                                child: Icon(
+                                                  CupertinoIcons.minus,
+                                                  size: 20,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                              child: Text(
+                                                "10",
+                                                style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                            ),
+                                            Container(
+                                              padding: EdgeInsets.all(5),
+                                              margin: EdgeInsets.only(top: 30),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                  BorderRadius.circular(20),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                        color: Colors.grey
+                                                            .withOpacity(0.5),
+                                                        spreadRadius: 2,
+                                                        blurRadius: 8)
+                                                  ]),
+                                              child: GestureDetector(
+                                                onTap: onIncrement,
+                                                child: Icon(
+                                                  CupertinoIcons.add,
+                                                  size: 20,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                ),
+                                              ),
+                                            ),
+                                          ]),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: Image.asset(
+                                        "assets/images/address.png",
+                                        height: 60,
+                                        width: 60,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Container(
+                                            margin:
+                                            EdgeInsets.only(top: 10, bottom: 2),
+                                            child: Text(
+                                              "Item title",
+                                              style: TextStyle(
+                                                  color: Constants.primaryColor,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 22),
+                                            ),
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              "10.000đ",
+                                              style: TextStyle(
+                                                  color: Constants.primaryColor,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    Spacer(),
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(horizontal: 10),
+                                      child: Row(
+                                        // mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              padding: EdgeInsets.all(4),
+                                              margin: EdgeInsets.only(top: 30),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                  BorderRadius.circular(20),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                        color: Colors.grey
+                                                            .withOpacity(0.5),
+                                                        spreadRadius: 2,
+                                                        blurRadius: 8)
+                                                  ]),
+                                              child: GestureDetector(
+                                                onTap: onDecrement,
+                                                child: Icon(
+                                                  CupertinoIcons.minus,
+                                                  size: 20,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                              child: Text(
+                                                "10",
+                                                style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                            ),
+                                            Container(
+                                              padding: EdgeInsets.all(5),
+                                              margin: EdgeInsets.only(top: 30),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                  BorderRadius.circular(20),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                        color: Colors.grey
+                                                            .withOpacity(0.5),
+                                                        spreadRadius: 2,
+                                                        blurRadius: 8)
+                                                  ]),
+                                              child: GestureDetector(
+                                                onTap: onIncrement,
+                                                child: Icon(
+                                                  CupertinoIcons.add,
+                                                  size: 20,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                ),
+                                              ),
+                                            ),
+                                          ]),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: Image.asset(
+                                        "assets/images/address.png",
+                                        height: 60,
+                                        width: 60,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Container(
+                                            margin:
+                                            EdgeInsets.only(top: 10, bottom: 2),
+                                            child: Text(
+                                              "Item title",
+                                              style: TextStyle(
+                                                  color: Constants.primaryColor,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 22),
+                                            ),
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              "10.000đ",
+                                              style: TextStyle(
+                                                  color: Constants.primaryColor,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    Spacer(),
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(horizontal: 10),
+                                      child: Row(
+                                        // mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              padding: EdgeInsets.all(4),
+                                              margin: EdgeInsets.only(top: 30),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                  BorderRadius.circular(20),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                        color: Colors.grey
+                                                            .withOpacity(0.5),
+                                                        spreadRadius: 2,
+                                                        blurRadius: 8)
+                                                  ]),
+                                              child: GestureDetector(
+                                                onTap: onDecrement,
+                                                child: Icon(
+                                                  CupertinoIcons.minus,
+                                                  size: 20,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                              child: Text(
+                                                "10",
+                                                style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                            ),
+                                            Container(
+                                              padding: EdgeInsets.all(5),
+                                              margin: EdgeInsets.only(top: 30),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                  BorderRadius.circular(20),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                        color: Colors.grey
+                                                            .withOpacity(0.5),
+                                                        spreadRadius: 2,
+                                                        blurRadius: 8)
+                                                  ]),
+                                              child: GestureDetector(
+                                                onTap: onIncrement,
+                                                child: Icon(
+                                                  CupertinoIcons.add,
+                                                  size: 20,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                ),
+                                              ),
+                                            ),
+                                          ]),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )
 
-                        Text('Page 3'), // Removed Center widget
-                        Text('Page 4'), // Removed Center widget
+                        ),
+                        Container(
+                            margin: EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 15),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 1,
+                                    blurRadius: 8,
+                                  )
+                                ]),
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: Image.asset(
+                                          "assets/images/address.png",
+                                          height: 60,
+                                          width: 60,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Container(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              margin:
+                                              EdgeInsets.only(top: 10, bottom: 2),
+                                              child: Text(
+                                                "Item title",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 22),
+                                              ),
+                                            ),
+                                            Container(
+                                              child: Text(
+                                                "10.000đ",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 10),
+                                        child: Row(
+                                          // mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Container(
+                                                padding: EdgeInsets.all(4),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onDecrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.minus,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                                child: Text(
+                                                  "10",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.all(5),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onIncrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.add,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                            ]),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: Image.asset(
+                                          "assets/images/address.png",
+                                          height: 60,
+                                          width: 60,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Container(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              margin:
+                                              EdgeInsets.only(top: 10, bottom: 2),
+                                              child: Text(
+                                                "Item title",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 22),
+                                              ),
+                                            ),
+                                            Container(
+                                              child: Text(
+                                                "10.000đ",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 10),
+                                        child: Row(
+                                          // mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Container(
+                                                padding: EdgeInsets.all(4),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onDecrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.minus,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                                child: Text(
+                                                  "10",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.all(5),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onIncrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.add,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                            ]),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: Image.asset(
+                                          "assets/images/address.png",
+                                          height: 60,
+                                          width: 60,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Container(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              margin:
+                                              EdgeInsets.only(top: 10, bottom: 2),
+                                              child: Text(
+                                                "Item title",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 22),
+                                              ),
+                                            ),
+                                            Container(
+                                              child: Text(
+                                                "10.000đ",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 10),
+                                        child: Row(
+                                          // mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Container(
+                                                padding: EdgeInsets.all(4),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onDecrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.minus,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                                child: Text(
+                                                  "10",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.all(5),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onIncrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.add,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                            ]),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: Image.asset(
+                                          "assets/images/address.png",
+                                          height: 60,
+                                          width: 60,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Container(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              margin:
+                                              EdgeInsets.only(top: 10, bottom: 2),
+                                              child: Text(
+                                                "Item title",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 22),
+                                              ),
+                                            ),
+                                            Container(
+                                              child: Text(
+                                                "10.000đ",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 10),
+                                        child: Row(
+                                          // mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Container(
+                                                padding: EdgeInsets.all(4),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onDecrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.minus,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                                child: Text(
+                                                  "10",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.all(5),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onIncrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.add,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                            ]),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: Image.asset(
+                                          "assets/images/address.png",
+                                          height: 60,
+                                          width: 60,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Container(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              margin:
+                                              EdgeInsets.only(top: 10, bottom: 2),
+                                              child: Text(
+                                                "Item title",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 22),
+                                              ),
+                                            ),
+                                            Container(
+                                              child: Text(
+                                                "10.000đ",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 10),
+                                        child: Row(
+                                          // mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Container(
+                                                padding: EdgeInsets.all(4),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onDecrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.minus,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                                child: Text(
+                                                  "10",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.all(5),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onIncrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.add,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                            ]),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: Image.asset(
+                                          "assets/images/address.png",
+                                          height: 60,
+                                          width: 60,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Container(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              margin:
+                                              EdgeInsets.only(top: 10, bottom: 2),
+                                              child: Text(
+                                                "Item title",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 22),
+                                              ),
+                                            ),
+                                            Container(
+                                              child: Text(
+                                                "10.000đ",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 10),
+                                        child: Row(
+                                          // mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Container(
+                                                padding: EdgeInsets.all(4),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onDecrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.minus,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                                child: Text(
+                                                  "10",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.all(5),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onIncrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.add,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                            ]),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: Image.asset(
+                                          "assets/images/address.png",
+                                          height: 60,
+                                          width: 60,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Container(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              margin:
+                                              EdgeInsets.only(top: 10, bottom: 2),
+                                              child: Text(
+                                                "Item title",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 22),
+                                              ),
+                                            ),
+                                            Container(
+                                              child: Text(
+                                                "10.000đ",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 10),
+                                        child: Row(
+                                          // mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Container(
+                                                padding: EdgeInsets.all(4),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onDecrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.minus,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                                child: Text(
+                                                  "10",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.all(5),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onIncrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.add,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                            ]),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: Image.asset(
+                                          "assets/images/address.png",
+                                          height: 60,
+                                          width: 60,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Container(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              margin:
+                                              EdgeInsets.only(top: 10, bottom: 2),
+                                              child: Text(
+                                                "Item title",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 22),
+                                              ),
+                                            ),
+                                            Container(
+                                              child: Text(
+                                                "10.000đ",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 10),
+                                        child: Row(
+                                          // mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Container(
+                                                padding: EdgeInsets.all(4),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onDecrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.minus,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                                child: Text(
+                                                  "10",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.all(5),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onIncrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.add,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                            ]),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: Image.asset(
+                                          "assets/images/address.png",
+                                          height: 60,
+                                          width: 60,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Container(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              margin:
+                                              EdgeInsets.only(top: 10, bottom: 2),
+                                              child: Text(
+                                                "Item title",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 22),
+                                              ),
+                                            ),
+                                            Container(
+                                              child: Text(
+                                                "10.000đ",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 10),
+                                        child: Row(
+                                          // mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Container(
+                                                padding: EdgeInsets.all(4),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onDecrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.minus,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                                child: Text(
+                                                  "10",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.all(5),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onIncrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.add,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                            ]),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: Image.asset(
+                                          "assets/images/address.png",
+                                          height: 60,
+                                          width: 60,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Container(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              margin:
+                                              EdgeInsets.only(top: 10, bottom: 2),
+                                              child: Text(
+                                                "Item title",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 22),
+                                              ),
+                                            ),
+                                            Container(
+                                              child: Text(
+                                                "10.000đ",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 10),
+                                        child: Row(
+                                          // mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Container(
+                                                padding: EdgeInsets.all(4),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onDecrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.minus,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                                child: Text(
+                                                  "10",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.all(5),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onIncrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.add,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                            ]),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: Image.asset(
+                                          "assets/images/address.png",
+                                          height: 60,
+                                          width: 60,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Container(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              margin:
+                                              EdgeInsets.only(top: 10, bottom: 2),
+                                              child: Text(
+                                                "Item title",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 22),
+                                              ),
+                                            ),
+                                            Container(
+                                              child: Text(
+                                                "10.000đ",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 10),
+                                        child: Row(
+                                          // mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Container(
+                                                padding: EdgeInsets.all(4),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onDecrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.minus,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                                child: Text(
+                                                  "10",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.all(5),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onIncrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.add,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                            ]),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: Image.asset(
+                                          "assets/images/address.png",
+                                          height: 60,
+                                          width: 60,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Container(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              margin:
+                                              EdgeInsets.only(top: 10, bottom: 2),
+                                              child: Text(
+                                                "Item title",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 22),
+                                              ),
+                                            ),
+                                            Container(
+                                              child: Text(
+                                                "10.000đ",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 10),
+                                        child: Row(
+                                          // mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Container(
+                                                padding: EdgeInsets.all(4),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onDecrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.minus,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                                child: Text(
+                                                  "10",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.all(5),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onIncrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.add,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                            ]),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: Image.asset(
+                                          "assets/images/address.png",
+                                          height: 60,
+                                          width: 60,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Container(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              margin:
+                                              EdgeInsets.only(top: 10, bottom: 2),
+                                              child: Text(
+                                                "Item title",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 22),
+                                              ),
+                                            ),
+                                            Container(
+                                              child: Text(
+                                                "10.000đ",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 10),
+                                        child: Row(
+                                          // mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Container(
+                                                padding: EdgeInsets.all(4),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onDecrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.minus,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                                child: Text(
+                                                  "10",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.all(5),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onIncrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.add,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                            ]),
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            )
+
+                        ),
+                        Container(
+                            margin: EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 15),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 1,
+                                    blurRadius: 8,
+                                  )
+                                ]),
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: Image.asset(
+                                          "assets/images/address.png",
+                                          height: 60,
+                                          width: 60,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Container(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              margin:
+                                              EdgeInsets.only(top: 10, bottom: 2),
+                                              child: Text(
+                                                "Item title",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 22),
+                                              ),
+                                            ),
+                                            Container(
+                                              child: Text(
+                                                "10.000đ",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 10),
+                                        child: Row(
+                                          // mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Container(
+                                                padding: EdgeInsets.all(4),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onDecrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.minus,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                                child: Text(
+                                                  "10",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.all(5),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onIncrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.add,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                            ]),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: Image.asset(
+                                          "assets/images/address.png",
+                                          height: 60,
+                                          width: 60,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Container(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              margin:
+                                              EdgeInsets.only(top: 10, bottom: 2),
+                                              child: Text(
+                                                "Item title",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 22),
+                                              ),
+                                            ),
+                                            Container(
+                                              child: Text(
+                                                "10.000đ",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 10),
+                                        child: Row(
+                                          // mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Container(
+                                                padding: EdgeInsets.all(4),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onDecrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.minus,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                                child: Text(
+                                                  "10",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.all(5),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onIncrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.add,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                            ]),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: Image.asset(
+                                          "assets/images/address.png",
+                                          height: 60,
+                                          width: 60,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Container(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              margin:
+                                              EdgeInsets.only(top: 10, bottom: 2),
+                                              child: Text(
+                                                "Item title",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 22),
+                                              ),
+                                            ),
+                                            Container(
+                                              child: Text(
+                                                "10.000đ",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 10),
+                                        child: Row(
+                                          // mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Container(
+                                                padding: EdgeInsets.all(4),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onDecrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.minus,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                                child: Text(
+                                                  "10",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.all(5),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onIncrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.add,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                            ]),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: Image.asset(
+                                          "assets/images/address.png",
+                                          height: 60,
+                                          width: 60,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Container(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              margin:
+                                              EdgeInsets.only(top: 10, bottom: 2),
+                                              child: Text(
+                                                "Item title",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 22),
+                                              ),
+                                            ),
+                                            Container(
+                                              child: Text(
+                                                "10.000đ",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 10),
+                                        child: Row(
+                                          // mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Container(
+                                                padding: EdgeInsets.all(4),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onDecrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.minus,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                                child: Text(
+                                                  "10",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.all(5),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onIncrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.add,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                            ]),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: Image.asset(
+                                          "assets/images/address.png",
+                                          height: 60,
+                                          width: 60,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Container(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              margin:
+                                              EdgeInsets.only(top: 10, bottom: 2),
+                                              child: Text(
+                                                "Item title",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 22),
+                                              ),
+                                            ),
+                                            Container(
+                                              child: Text(
+                                                "10.000đ",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 10),
+                                        child: Row(
+                                          // mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Container(
+                                                padding: EdgeInsets.all(4),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onDecrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.minus,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                                child: Text(
+                                                  "10",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.all(5),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onIncrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.add,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                            ]),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: Image.asset(
+                                          "assets/images/address.png",
+                                          height: 60,
+                                          width: 60,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Container(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              margin:
+                                              EdgeInsets.only(top: 10, bottom: 2),
+                                              child: Text(
+                                                "Item title",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 22),
+                                              ),
+                                            ),
+                                            Container(
+                                              child: Text(
+                                                "10.000đ",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 10),
+                                        child: Row(
+                                          // mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Container(
+                                                padding: EdgeInsets.all(4),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onDecrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.minus,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                                child: Text(
+                                                  "10",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.all(5),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onIncrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.add,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                            ]),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: Image.asset(
+                                          "assets/images/address.png",
+                                          height: 60,
+                                          width: 60,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Container(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              margin:
+                                              EdgeInsets.only(top: 10, bottom: 2),
+                                              child: Text(
+                                                "Item title",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 22),
+                                              ),
+                                            ),
+                                            Container(
+                                              child: Text(
+                                                "10.000đ",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 10),
+                                        child: Row(
+                                          // mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Container(
+                                                padding: EdgeInsets.all(4),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onDecrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.minus,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                                child: Text(
+                                                  "10",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.all(5),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onIncrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.add,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                            ]),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: Image.asset(
+                                          "assets/images/address.png",
+                                          height: 60,
+                                          width: 60,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Container(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              margin:
+                                              EdgeInsets.only(top: 10, bottom: 2),
+                                              child: Text(
+                                                "Item title",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 22),
+                                              ),
+                                            ),
+                                            Container(
+                                              child: Text(
+                                                "10.000đ",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 10),
+                                        child: Row(
+                                          // mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Container(
+                                                padding: EdgeInsets.all(4),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onDecrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.minus,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                                child: Text(
+                                                  "10",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.all(5),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onIncrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.add,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                            ]),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: Image.asset(
+                                          "assets/images/address.png",
+                                          height: 60,
+                                          width: 60,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Container(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              margin:
+                                              EdgeInsets.only(top: 10, bottom: 2),
+                                              child: Text(
+                                                "Item title",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 22),
+                                              ),
+                                            ),
+                                            Container(
+                                              child: Text(
+                                                "10.000đ",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 10),
+                                        child: Row(
+                                          // mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Container(
+                                                padding: EdgeInsets.all(4),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onDecrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.minus,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                                child: Text(
+                                                  "10",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.all(5),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onIncrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.add,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                            ]),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: Image.asset(
+                                          "assets/images/address.png",
+                                          height: 60,
+                                          width: 60,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Container(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              margin:
+                                              EdgeInsets.only(top: 10, bottom: 2),
+                                              child: Text(
+                                                "Item title",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 22),
+                                              ),
+                                            ),
+                                            Container(
+                                              child: Text(
+                                                "10.000đ",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 10),
+                                        child: Row(
+                                          // mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Container(
+                                                padding: EdgeInsets.all(4),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onDecrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.minus,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                                child: Text(
+                                                  "10",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.all(5),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onIncrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.add,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                            ]),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: Image.asset(
+                                          "assets/images/address.png",
+                                          height: 60,
+                                          width: 60,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Container(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              margin:
+                                              EdgeInsets.only(top: 10, bottom: 2),
+                                              child: Text(
+                                                "Item title",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 22),
+                                              ),
+                                            ),
+                                            Container(
+                                              child: Text(
+                                                "10.000đ",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 10),
+                                        child: Row(
+                                          // mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Container(
+                                                padding: EdgeInsets.all(4),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onDecrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.minus,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                                child: Text(
+                                                  "10",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.all(5),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onIncrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.add,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                            ]),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: Image.asset(
+                                          "assets/images/address.png",
+                                          height: 60,
+                                          width: 60,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Container(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              margin:
+                                              EdgeInsets.only(top: 10, bottom: 2),
+                                              child: Text(
+                                                "Item title",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 22),
+                                              ),
+                                            ),
+                                            Container(
+                                              child: Text(
+                                                "10.000đ",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 10),
+                                        child: Row(
+                                          // mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Container(
+                                                padding: EdgeInsets.all(4),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onDecrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.minus,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                                child: Text(
+                                                  "10",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.all(5),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onIncrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.add,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                            ]),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: Image.asset(
+                                          "assets/images/address.png",
+                                          height: 60,
+                                          width: 60,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Container(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              margin:
+                                              EdgeInsets.only(top: 10, bottom: 2),
+                                              child: Text(
+                                                "Item title",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 22),
+                                              ),
+                                            ),
+                                            Container(
+                                              child: Text(
+                                                "10.000đ",
+                                                style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 10),
+                                        child: Row(
+                                          // mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Container(
+                                                padding: EdgeInsets.all(4),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onDecrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.minus,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                                                child: Text(
+                                                  "10",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.all(5),
+                                                margin: EdgeInsets.only(top: 30),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.5),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 8)
+                                                    ]),
+                                                child: GestureDetector(
+                                                  onTap: onIncrement,
+                                                  child: Icon(
+                                                    CupertinoIcons.add,
+                                                    size: 20,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                            ]),
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            )
+
+                        ),
                       ],
                     ))),
           ),
           Container(
             // margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
             padding: EdgeInsets.all(15),
-            height: 80,
             decoration: BoxDecoration(
                 color: Constants.backgroundTable,
                 // borderRadius: BorderRadius.circular(20),
@@ -244,31 +4507,17 @@ class _DetailDishState extends State<DetailDish>
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Stack(
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(Icons.shopping_cart, size: 50),
-                        Positioned(
-                          top: -8,
-                          left: 40,
-                          child: Container(
-                            padding: EdgeInsets.all(2),
-                            decoration: BoxDecoration(
-                              color: Colors.red,
-                              shape: BoxShape.circle,
-                            ),
-                            constraints: BoxConstraints(
-                              minWidth: 20,
-                              minHeight: 20,
-                            ),
-                            child: Text(
-                              '10',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
+                        Image(image: AssetImage("assets/images/cart.png")),
+                        Text(
+                          '(10)',
+                          style: TextStyle(
+                            color: Constants.primaryColor,
+                            fontSize: 20,
                           ),
+                          textAlign: TextAlign.center,
                         ),
                       ],
                     ),
