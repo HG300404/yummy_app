@@ -16,6 +16,20 @@ class RestaurantController {
     ApiResponse apiResponse = ApiResponse(response.statusCode, response.body);
     return apiResponse;
   }
+  //getItem
+  Future<ApiResponse> getItem(int id) async {
+    var url = Uri.parse('http://10.0.2.2:8000/api/restaurant/getItem/${id}');
+    var response = await http.get(
+      url,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+
+    ApiResponse apiResponse = ApiResponse(response.statusCode, response.body);
+    return apiResponse;
+  }
+
 
 // //register
 // Future<ApiResponse> signUp(String name, String phone, String email, String password) async {

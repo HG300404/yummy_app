@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/ui/screens/detail_dish_page.dart';
 
 import '../../../constants.dart';
 import '../common/color_extension.dart';
@@ -13,7 +14,14 @@ class PopularRestaurantRow extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
       child: InkWell(
-        onTap: onTap,
+        onTap: (){
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => DetailDish(resID: pObj["id"]) //replace with your new page
+              )
+          );
+        },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Users {
-  final String user_id;
+  final int id;
   final String username;
   final String ? password;
   final String email;
@@ -16,7 +16,7 @@ class Users {
 
   const Users(
    {
-     required this.user_id,
+     required this.id,
      required this.username,
       this.password,
      required this.email,
@@ -33,7 +33,7 @@ class Users {
   // Chuyển đổi đối tượng Task thành Map
   Map<String, Object?> toMap() {
     return {
-      'user_id': user_id,
+      'user_id': id,
       'username': username,
       'password': password,
       'email': email,
@@ -49,7 +49,7 @@ class Users {
 
   // Tạo đối tượng Task từ Map
   Users.fromMap(Map<String, dynamic> map)
-      : user_id = map['id'],
+      : id = map['id'],
         username = map['username'],
         password = map['password'],
         email = map['email'],

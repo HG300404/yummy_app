@@ -263,7 +263,7 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: ViewAllTitleRow(
-                  title: "Recent Items",
+                  title: "Món Ăn Mới",
                   onView: () {},
                 ),
               ),
