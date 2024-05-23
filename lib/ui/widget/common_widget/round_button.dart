@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/constants.dart';
 
-import '../common/color_extension.dart';
 
 enum RoundButtonType { bgPrimary, textPrimary }
 
@@ -24,14 +24,14 @@ class RoundButton extends StatelessWidget {
         height: 56,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          border: type == RoundButtonType.bgPrimary ? null : Border.all(color: TColor.primary, width: 1),
-          color: type == RoundButtonType.bgPrimary ? TColor.primary : TColor.white,
+          border: type == RoundButtonType.bgPrimary ? null : Border.all(color: Constants.primaryColor, width: 1),
+          color: type == RoundButtonType.bgPrimary ? Constants.primaryColor : Constants.white,
           borderRadius: BorderRadius.circular(28),
         ),
         child: Text(
           title,
           style: TextStyle(
-              color: type == RoundButtonType.bgPrimary ? TColor.white :  TColor.primary, fontSize: fontSize, fontWeight: FontWeight.w600),
+              color: type == RoundButtonType.bgPrimary ? Constants.white :  Constants.primaryColor, fontSize: fontSize, fontWeight: FontWeight.w600),
         ),
       ),
     );

@@ -197,15 +197,8 @@ class _DetailDishState extends State<DetailDish>
                                         Row(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            // Padding(
-                                            //   padding: EdgeInsets.all(10),
-                                            //   child: Image.asset(
-                                            //     pObj.img,
-                                            //     height: 60,
-                                            //     width: 60,
-                                            //     fit: BoxFit.cover,
-                                            //   ),
-                                            // ),
+
+
                                             Container(
                                               child: Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,

@@ -21,6 +21,10 @@ class Constants {
 // Màu văn bản cho những thông tin không quan trọng lắm
   static var lightTextColor = const Color(0xFF7F7C7E); // Màu xám nhạt
 
+  static Color get white => const Color(0xffffffff);
+
+  static Color get textfield => const Color(0xffF2F2F2);
+
   //Onboarding texts
   static var titleOne = "Thiên đường ẩm thực cùng với Yummy Food";
   static var descriptionOne = "Chọn hàng ngàn món ăn đặc sắc, đặt trong tích tắc và thưởng thức món ngon mọi lúc, mọi nơi.";
