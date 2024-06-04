@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 
 import '../common/color_extension.dart';
@@ -9,6 +12,14 @@ class RecentItemRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final prefix = 'data:image/jpeg;base64,';
+    Uint8List? bytes;
+    if (rObj["img"] != null && rObj["img"].startsWith(prefix)) {
+      final String base64Image = rObj["img"].substring(prefix.length);
+      bytes = base64Decode(base64Image);
+    } else {
+      bytes = null;
+    }
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
       child: InkWell(
@@ -17,15 +28,14 @@ class RecentItemRow extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
 
-            ClipRRect(
+            bytes != null
+                ? ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.asset(
-                rObj["img"].toString(),
-                width: 70,
+              child: Image.memory(bytes,  width: 70,
                 height: 70,
-                fit: BoxFit.cover,
-              ),
-            ),
+                fit: BoxFit.cover,),
+            )
+                : CircularProgressIndicator(),
             const SizedBox(
               width: 8,
             ),
