@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 
 import '../common/color_extension.dart';
@@ -5,10 +8,18 @@ import '../common/color_extension.dart';
 class MostPopularCell extends StatelessWidget {
   final Map mObj;
   final VoidCallback onTap;
-  const MostPopularCell({super.key, required this.mObj, required this.onTap});
 
+  const MostPopularCell({super.key, required this.mObj, required this.onTap});
   @override
   Widget build(BuildContext context) {
+    final prefix = 'data:image/jpeg;base64,';
+    Uint8List? bytes;
+    if (mObj["img"] != null && mObj["img"].startsWith(prefix)) {
+      final String base64Image = mObj["img"].substring(prefix.length);
+      bytes = base64Decode(base64Image);
+    } else {
+      bytes = null;
+    }
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 8),
       child: InkWell(
@@ -16,15 +27,14 @@ class MostPopularCell extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ClipRRect(
+            bytes != null
+                ? ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.asset(
-                mObj["img"].toString(),
-                width: 220,
-                height: 130,
-                fit: BoxFit.cover,
-              ),
-            ),
+              child: Image.memory(bytes,  width: 220,
+                  height: 130,
+                  fit: BoxFit.cover,),
+            )
+                : CircularProgressIndicator(),
             const SizedBox(
               height: 8,
             ),

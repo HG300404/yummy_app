@@ -22,10 +22,10 @@ class _RootPageState extends State<RootPage> {
   ];
 
   // List of the page icons
-  List<IconData> iconList = [Icons.home, Icons.favorite, Icons.person];
+  List<IconData> iconList = [Icons.home, Icons.list_alt_outlined, Icons.person];
 
   // List of the pages titles
-  List<String> titleList = ["Home", "Favorite", "Profile"];
+  List<String> titleList = ["Trang chủ", "Đơn hàng", "Thông tin cá nhân"];
 
   @override
   Widget build(BuildContext context) {

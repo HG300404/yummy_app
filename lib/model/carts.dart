@@ -1,26 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Dishes {
+class Carts {
   final int id;
+  final int user_id;
+  final int item_id;
   final int restaurant_id;
-  final String name;
-  final dynamic img;
-  final int price;
-  final int? rate;
-  final String type;
+  final int quantity;
   final Timestamp? created_at;
   final Timestamp? updated_at;
 
 
-  const Dishes(
+  const Carts(
       {
         required this.id,
+        required this.user_id,
+        required this.item_id,
         required this.restaurant_id,
-        required this.name,
-        required this.img,
-        required this.price,
-        this.rate,
-        required this.type,
+        required this.quantity,
         this.created_at,
         this.updated_at,
       });
@@ -29,30 +25,26 @@ class Dishes {
   Map<String, Object?> toMap() {
     return {
       'id': id,
+      'user_id': user_id,
+      'item_id': item_id,
       'restaurant_id': restaurant_id,
-      'name': name,
-      'img': img,
-      'price': price,
-      'rate': rate,
-      'type': type,
+      'quantity': quantity,
       'created_at': created_at,
       'updated_at': updated_at};
   }
 
 
-  Dishes.fromMap(Map<String, dynamic> map)
+  Carts.fromMap(Map<String, dynamic> map)
       : id = map['id'],
+        user_id = map['user_id'] ?? '',
+        item_id = map['item_id'] ?? '',
         restaurant_id = map['restaurant_id'],
-        name = map['name'] ?? '',
-        img = map['img'] != null ? map['img'].toString() : '',
-        price = map['price'] ?? '',
-        rate = map['rate'] ?? '',
-        type = map['type'] ?? '',
+        quantity = map['quantity'] ?? '',
         created_at = (map['created_at'] != null) ? Timestamp.fromDate(DateTime.parse(map['created_at'])) : null,
         updated_at = (map['updated_at'] != null) ? Timestamp.fromDate(DateTime.parse(map['updated_at'])) : null;
 
   @override
   String toString() {
-    return 'Dishes {id: $id, restaurant_id: $restaurant_id, name: $name, img: $img, price: $price, rate: $rate,type: $type, created_at: $created_at, updated_at: $updated_at}';
+    return 'Carts {id: $id, user_id: $user_id, item_id: $item_id, restaurant_id: $restaurant_id, quantity: $quantity, created_at: $created_at, updated_at: $updated_at}';
   }
 }

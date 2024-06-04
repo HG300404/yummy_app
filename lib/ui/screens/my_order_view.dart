@@ -1,6 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:food_app/constants.dart';
+import 'package:food_app/db/cartController.dart';
+import 'package:food_app/db/userController.dart';
+import 'package:food_app/model/carts.dart';
 
+import '../../db/restaurantController.dart';
+import '../../model/restaurants.dart';
 import '../widget/common_widget/round_button.dart';
 import 'checkout_view.dart';
 
@@ -14,13 +21,73 @@ class MyOrderView extends StatefulWidget {
 }
 
 class _MyOrderViewState extends State<MyOrderView> {
-  List itemArr = [
-    {"name": "Bò Hamburger", "qty": "1", "price": 16.0},
-    {"name": "Hamburger Cổ Điển", "qty": "1", "price": 14.0},
-    {"name": "Hamburger Gà Phô Mai", "qty": "1", "price": 17.0},
-    {"name": "Chân Gà", "qty": "1", "price": 15.0},
-    {"name": "Khoai Tây Chiên Lớn", "qty": "1", "price": 6.0}
-  ];
+  int resID = 1;
+  num count = 0;
+  num total = 0;
+  @override
+  void initState() {
+    super.initState();
+    _getCart();
+    _getItem();
+  }
+  void _showSnackBar(String message, Color backgroundColor) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          message,
+          textAlign: TextAlign.center,
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: backgroundColor,
+        duration: Duration(seconds: 3),
+      ),
+    );
+  }
+
+  Restaurants item = Restaurants(
+    id: 0,
+    name: '',
+    address: '',
+    phone: '',
+    opening_hours: '',
+    total_rate: 0,
+    review_count: 0,
+    created_at: null,
+    updated_at: null,
+  );
+  Future<void> _getItem() async {
+    try {
+      ApiResponse response = await RestaurantController().getItem(resID);
+      if (response.statusCode == 200) {
+        setState(() {
+          Map<String, dynamic> data = jsonDecode(response.body);
+          item = Restaurants.fromMap(data);
+        });
+      } else {
+        _showSnackBar('Server error. Please try again later.', Colors.red);
+      }
+    } catch (error) {
+      // Xử lý lỗi (nếu có)
+      print(error);
+    }
+  }
+  List<dynamic> itemArr = [];
+  Future<void> _getCart() async {
+    try {
+      ApiResponse response = await CartController().getAll("5", resID);
+      if (response.statusCode == 200) {
+        setState(() {
+          itemArr = jsonDecode(response.body);
+        });
+      } else {
+        _showSnackBar('Server error. Please try again later.', Colors.red);
+      }
+    } catch (error) {
+      // Xử lý lỗi (nếu có)
+      print(error);
+    }
+  }
+  bool _showInputField = false;
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +149,7 @@ class _MyOrderViewState extends State<MyOrderView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "King Burgers",
+                            "${item.name}",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: Constants.lightTextColor,
@@ -105,7 +172,7 @@ class _MyOrderViewState extends State<MyOrderView> {
                                 width: 4,
                               ),
                               Text(
-                                "4.9",
+                                "${item.total_rate}",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: Constants.primaryColor, fontSize: 12),
@@ -114,7 +181,7 @@ class _MyOrderViewState extends State<MyOrderView> {
                                 width: 8,
                               ),
                               Text(
-                                "(124 Đánh Giá)",
+                                "${item.review_count} Đánh Giá",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: Constants.highlightColor, fontSize: 12),
@@ -124,30 +191,12 @@ class _MyOrderViewState extends State<MyOrderView> {
                           const SizedBox(
                             height: 4,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Burger",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Constants.highlightColor, fontSize: 12),
-                              ),
-                              Text(
-                                " . ",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Constants.highlightColor, fontSize: 12),
-                              ),
-                              Text(
-                                "Đồ Ăn Phương Tây",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Constants.highlightColor, fontSize: 12),
-                              ),
-                            ],
+                          Text(
+                            "${item.opening_hours}",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Constants.highlightColor, fontSize: 12),
                           ),
-
                           const SizedBox(
                             height: 4,
                           ),
@@ -165,7 +214,7 @@ class _MyOrderViewState extends State<MyOrderView> {
                               ),
                               Expanded(
                                 child: Text(
-                                  "356 Tran dai nghia, hoa quy",
+                                  "${item.address}",
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                       color: Constants.highlightColor,
@@ -197,7 +246,9 @@ class _MyOrderViewState extends State<MyOrderView> {
                     height: 1,
                   )),
                   itemBuilder: ((context, index) {
-                    var cObj = itemArr[index] as Map? ?? {};
+                    var cObj = itemArr[index];
+                    total += (cObj["dish_price"] ?? 0) * (cObj["quantity"] ?? 0);
+                    count += cObj["quantity"];
                     return Container(
                       padding: const EdgeInsets.symmetric(
                           vertical: 15, horizontal: 25),
@@ -206,7 +257,7 @@ class _MyOrderViewState extends State<MyOrderView> {
                         children: [
                           Expanded(
                             child: Text(
-                              "${cObj["name"].toString()} x${cObj["qty"].toString()}",
+                              "${cObj["dish_name"]} x${cObj["quantity"]}",
                               style: TextStyle(
                                   color: Constants.lightTextColor,
                                   fontSize: 13,
@@ -217,7 +268,7 @@ class _MyOrderViewState extends State<MyOrderView> {
                             width: 15,
                           ),
                           Text(
-                            "\$${cObj["price"].toString()}",
+                            "${cObj["dish_price"]}đ",
                             style: TextStyle(
                                 color: Constants.lightTextColor,
                                 fontSize: 13,
@@ -246,7 +297,11 @@ class _MyOrderViewState extends State<MyOrderView> {
                               fontWeight: FontWeight.w700),
                         ),
                         TextButton.icon(
-                          onPressed: () {},
+                          onPressed: () {
+                            setState(() {
+                              _showInputField = !_showInputField;
+                            });
+                          },
                           icon: Icon(Icons.add, color: Constants.primaryColor),
                           label: Text(
                             "Ghi chú",
@@ -255,8 +310,47 @@ class _MyOrderViewState extends State<MyOrderView> {
                                 fontSize: 13,
                                 fontWeight: FontWeight.w500),
                           ),
+                        ),
+                        if (_showInputField)
+                          Expanded(
+                            child: TextField(
+                              // Định cấu hình TextField cho phù hợp với yêu cầu của bạn
+                              decoration: InputDecoration(
+                                hintText: "Nhập ghi chú tại đây...",
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                    Divider(
+                      color: Constants.highlightColor.withOpacity(0.5),
+                      height: 1,
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Số lượng",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Constants.lightTextColor,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w700),
+                        ),
+                        Text(
+                          "$count",
+                          style: TextStyle(
+                              color: Constants.primaryColor,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w700),
                         )
                       ],
+                    ),
+                    const SizedBox(
+                      height: 15,
                     ),
                     Divider(
                       color: Constants.highlightColor.withOpacity(0.5),
@@ -277,60 +371,7 @@ class _MyOrderViewState extends State<MyOrderView> {
                               fontWeight: FontWeight.w700),
                         ),
                         Text(
-                          "\$68",
-                          style: TextStyle(
-                              color: Constants.primaryColor,
-                              fontSize: 13,
-                              fontWeight: FontWeight.w700),
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Phí ship",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Constants.lightTextColor,
-                              fontSize: 13,
-                              fontWeight: FontWeight.w700),
-                        ),
-                        Text(
-                          "\$2",
-                          style: TextStyle(
-                              color: Constants.primaryColor,
-                              fontSize: 13,
-                              fontWeight: FontWeight.w700),
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Divider(
-                      color: Constants.highlightColor.withOpacity(0.5),
-                      height: 1,
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Thành tiền",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Constants.lightTextColor,
-                              fontSize: 13,
-                              fontWeight: FontWeight.w700),
-                        ),
-                        Text(
-                          "\$70",
+                          "$totalđ",
                           style: TextStyle(
                               color: Constants.primaryColor,
                               fontSize: 22,
