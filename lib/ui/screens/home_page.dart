@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:food_app/constants.dart';
 import 'package:food_app/db/dishController.dart';
 import 'package:food_app/db/restaurantController.dart';
+import 'package:food_app/ui/screens/my_order_view.dart';
 import 'package:food_app/ui/screens/signin_page.dart';
 
 import '../../db/userController.dart';
@@ -131,7 +132,7 @@ class _HomePageState extends State<HomePage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const SignIn()));
+                                builder: (context) => const MyOrderView()));
                       },
                       icon: Image.asset(
                         "assets/images/shopping-cart.png",
