@@ -2,7 +2,7 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:flutter/material.dart';
 import 'package:food_app/constants.dart';
 import 'package:food_app/ui/screens/home_page.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:food_app/ui/screens/profile_view.dart';
 
 class RootPage extends StatefulWidget {
   const RootPage({super.key});
@@ -18,7 +18,7 @@ class _RootPageState extends State<RootPage> {
   List<Widget> pages = const [
     HomePage(),
     // FavoritePage(),
-    // ProfilePage(),
+    ProfileView(),
   ];
 
   // List of the page icons
