@@ -2,6 +2,7 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:flutter/material.dart';
 import 'package:food_app/constants.dart';
 import 'package:food_app/ui/screens/home_page.dart';
+import 'package:food_app/ui/screens/orderScreen.dart';
 import 'package:food_app/ui/screens/profile_view.dart';
 
 class RootPage extends StatefulWidget {
@@ -15,9 +16,9 @@ class _RootPageState extends State<RootPage> {
   int _bottomNavIndex = 0;
 
   // List of the page
-  List<Widget> pages = const [
+  List<Widget> pages =  [
     HomePage(),
-    // FavoritePage(),
+    OrderScreen(),
     ProfileView(),
   ];
 

@@ -1,10 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:food_app/ui/screens/detail_dish_page.dart';
-import 'package:food_app/ui/screens/home_page.dart';
-import 'package:food_app/ui/screens/my_order_view.dart';
-import 'package:food_app/ui/screens/profile_view.dart';
-import 'package:food_app/ui/screens/signin_page.dart';
-import 'package:food_app/ui/screens/updatePassword_screen.dart';
+import 'package:food_app/ui/screens/orderScreen.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,7 +26,7 @@ class MyApp extends StatelessWidget {
       designSize: const Size(360, 640),
       builder: (BuildContext context, Widget? _) => MaterialApp(
         title: 'Onboarding Screen',
-        home: SignIn(),
+        home: OrderScreen(),
         debugShowCheckedModeBanner: false,
       ),
     );
