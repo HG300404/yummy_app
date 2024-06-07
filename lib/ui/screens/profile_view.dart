@@ -48,10 +48,10 @@ class _ProfileViewState extends State<ProfileView> {
                     ),
                     IconButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const MyOrderView()));
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => const MyOrderView()));
                       },
                       icon: Image.asset(
                         "assets/images/shopping-cart.png",

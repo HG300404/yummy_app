@@ -54,9 +54,11 @@ dependencies:
   flutter_otp_text_field: ^1.1.0+2
   pin_code_fields: ^8.0.1
   google_sign_in: ^6.2.1
-
-
+  shared_preferences: ^2.2.3
   flutter_screenutil: ^5.0.0
+  google_maps_flutter: ^2.6.1
+  dio: ^4.0.0
+  flutter_polyline_points: ^1.0.0
 
 dev_dependencies:
   flutter_test:

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:food_app/constants.dart';
 import 'package:food_app/ui/screens/home_page.dart';
 import 'package:food_app/ui/screens/profile_view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RootPage extends StatefulWidget {
   const RootPage({super.key});
@@ -10,6 +11,7 @@ class RootPage extends StatefulWidget {
   @override
   State<RootPage> createState() => _RootPageState();
 }
+
 
 class _RootPageState extends State<RootPage> {
   int _bottomNavIndex = 0;

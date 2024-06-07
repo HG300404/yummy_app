@@ -6,6 +6,7 @@ import 'package:food_app/db/dishController.dart';
 import 'package:food_app/db/restaurantController.dart';
 import 'package:food_app/ui/screens/my_order_view.dart';
 import 'package:food_app/ui/screens/signin_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../db/userController.dart';
 import '../widget/common_widget/category_cell.dart';
@@ -16,6 +17,7 @@ import '../widget/common_widget/round_textfield.dart';
 import '../widget/common_widget/view_all_title_row.dart';
 
 class HomePage extends StatefulWidget {
+  // final int userID;
   const HomePage({super.key});
 
   @override
@@ -30,6 +32,14 @@ class _HomePageState extends State<HomePage> {
     _getTopDishes();
     _getTopRes();
     _getRecent();
+    getUserId();
+  }
+ var user_id = 0;
+  // Lấy user_id
+  Future<int?> getUserId() async {
+    final prefs = await SharedPreferences.getInstance();
+    user_id = prefs.getInt('user_id')!;
+    print(user_id);
   }
 
   void _showSnackBar(String message, Color backgroundColor) {
@@ -129,10 +139,10 @@ class _HomePageState extends State<HomePage> {
                     ),
                     IconButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const MyOrderView()));
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => const MyOrderView()));
                       },
                       icon: Image.asset(
                         "assets/images/shopping-cart.png",

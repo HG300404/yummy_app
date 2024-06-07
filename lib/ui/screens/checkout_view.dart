@@ -1,13 +1,22 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:food_app/constants.dart';
 import 'package:food_app/ui/screens/change_info_view.dart';
 import 'package:food_app/ui/widget/common_widget/round_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../db/cartController.dart';
+import '../../db/restaurantController.dart';
+import '../../db/userController.dart';
+import '../../model/restaurants.dart';
+import '../../model/users.dart';
 import 'checkout_message_view.dart';
 
 
 class CheckoutView extends StatefulWidget {
-  const CheckoutView({super.key});
+  final int resID;
+  const CheckoutView({super.key, required this.resID});
 
   @override
   State<CheckoutView> createState() => _CheckoutViewState();
@@ -21,10 +30,103 @@ class _CheckoutViewState extends State<CheckoutView> {
   ];
 
   int selectMethod = -1;
-  String name = "phuoc an";
-  String address = "356 tran dai nghia, hoa quy, ngu hanh son, DN";
-  String phone = "0123654789";
 
+  @override
+  void initState() {
+    super.initState();
+    _getUserId().then((_) {
+      _getCart();
+      _getItem();
+    });
+  }
+  var user_id = 0;
+  // Lấy user_id
+  Future<void> _getUserId() async {
+    final prefs = await SharedPreferences.getInstance();
+    user_id = prefs.getInt('user_id')!;
+  }
+  void _showSnackBar(String message, Color backgroundColor) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          message,
+          textAlign: TextAlign.center,
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: backgroundColor,
+        duration: Duration(seconds: 3),
+      ),
+    );
+  }
+  Users item = Users(
+    id: 0,
+    username: '',
+    password: '',
+    email: '',
+    phone: '',
+    address: '',
+    role: '',
+    imageURL: '',
+    level: 0,
+    coin: 0,
+    created_at: null,
+    updated_at: null,
+  );
+  Future<void> _getItem() async {
+    try {
+      ApiResponse response = await UserController().getItem(user_id);
+      if (response.statusCode == 200) {
+        setState(() {
+          Map<String, dynamic> data = jsonDecode(response.body);
+          item = Users.fromMap(data);
+          print("item: ${item}");
+        });
+      } else {
+        _showSnackBar('Server error. Please try again later.', Colors.red);
+      }
+    } catch (error) {
+      // Xử lý lỗi (nếu có)
+      print(error);
+    }
+  }
+  List<dynamic> list = [];
+  Map<int, Map<dynamic, dynamic>> cart = {};
+  Future<void> _getCart() async {
+    try {
+      ApiResponse response = await CartController().getAll(user_id, widget.resID);
+      if (response.statusCode == 200) {
+        setState(() {
+          list = jsonDecode(response.body);
+          list.forEach((item) {
+            cart[item['dish_id']] = {
+              'dish_name': item['dish_name'],
+              'dish_price': item['dish_price'],
+              'dish_img': item['dish_img'],
+              'quantity': item['quantity'],
+            };
+          });
+        });
+      } else {
+        _showSnackBar('Server error. Please try again later.', Colors.red);
+      }
+    } catch (error) {
+      // Xử lý lỗi (nếu có)
+      print(error);
+    }
+  }
+
+  num getTotalAmount() {
+    num total = 0;
+    for (var item in cart.values){
+      total += item['dish_price'] * item['quantity'];
+    }
+    return total;
+  }
+
+  num getTotal() {
+    num total = getTotalAmount() + 5 - item.coin;
+    return total;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +156,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                     ),
                     Expanded(
                       child: Text(
-                        "Checkout",
+                        "Thanh toán",
                         style: TextStyle(
                             color: Constants.lightTextColor,
                             fontSize: 20,
@@ -71,7 +173,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Delivery Address",
+                      "Địa chỉ giao hàng",
                       textAlign: TextAlign.center,
                       style:
                       TextStyle(color: Constants.highlightColor, fontSize: 12),
@@ -84,7 +186,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                       children: [
                         Expanded(
                           child: Text(
-                            "$name\n$address\n$phone",
+                            "${item.username}\n${item.address}\n${item.phone}",
                             style: TextStyle(
                                 color: Constants.lightTextColor,
                                 fontSize: 15,
@@ -102,13 +204,13 @@ class _CheckoutViewState extends State<CheckoutView> {
                                   builder: (context) =>
                                   const ChangeInfoView()),
                             );
-                            if (result != null) {
-                              setState(() {
-                                name = result['name'];
-                                address = result['address'];
-                                phone = result['phone'];
-                              });
-                            }
+                            // if (result != null) {
+                            //   setState(() {
+                            //     ${item.username} = result['name'];
+                            //     address = result['address'];
+                            //     phone = result['phone'];
+                            //   });
+                            // }
                           },
                           child: Text(
                             "Thay đổi",
@@ -195,6 +297,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                                   onTap: () {
                                     setState(() {
                                       selectMethod = index;
+                                      print(selectMethod);
                                     });
                                   },
                                   child: Icon(
@@ -239,7 +342,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                               fontWeight: FontWeight.w500),
                         ),
                         Text(
-                          "\$68",
+                          "${getTotalAmount()}.000đ",
                           style: TextStyle(
                               color: Constants.lightTextColor,
                               fontSize: 13,
@@ -262,7 +365,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                               fontWeight: FontWeight.w500),
                         ),
                         Text(
-                          "\$2",
+                          "5.000đ",
                           style: TextStyle(
                               color: Constants.lightTextColor,
                               fontSize: 13,
@@ -285,7 +388,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                               fontWeight: FontWeight.w500),
                         ),
                         Text(
-                          "-\$4",
+                          "-${item.coin}.000đ",
                           style: TextStyle(
                               color: Constants.lightTextColor,
                               fontSize: 13,
@@ -315,7 +418,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                               fontWeight: FontWeight.w500),
                         ),
                         Text(
-                          "\$66",
+                          "${getTotal()}.000đ",
                           style: TextStyle(
                               color: Constants.lightTextColor,
                               fontSize: 15,

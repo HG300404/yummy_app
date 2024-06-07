@@ -7,12 +7,12 @@ class Users {
   final String email;
   final String ? phone;
   final String ? address;
-  final int type;
+  final String role;
   final String ? imageURL;
   final int level;
   final int coin;
-  final String createdAt;
-  final String updatedAt;
+  final Timestamp? created_at;
+  final Timestamp? updated_at;
 
   const Users(
    {
@@ -22,12 +22,12 @@ class Users {
      required this.email,
       this.phone,
       this.address,
-     required this.type,
+     required this.role,
       this.imageURL,
      required this.level,
      required this.coin,
-     required this.createdAt,
-     required this.updatedAt,
+     this.created_at,
+     this.updated_at,
   });
 
   // Chuyển đổi đối tượng Task thành Map
@@ -39,27 +39,30 @@ class Users {
       'email': email,
       'phone': phone,
       'address': address,
-      'type': type,
+      'type': role,
       'imageURL': imageURL,
       'level': level,
       'coin': coin,
-      'createdAt': createdAt,
-      'updatedAt': updatedAt};
+      'created_at': created_at,
+      'updated_at': updated_at};
   }
 
   // Tạo đối tượng Task từ Map
   Users.fromMap(Map<String, dynamic> map)
       : id = map['id'],
-        username = map['username'],
-        password = map['password'],
-        email = map['email'],
-        phone = map['phone'],
-        address = map['address'],
-        type = map['type'],
-        imageURL = map['imageURL'],
-        level = map['level'],
-        coin = map['coin'],
-        createdAt = map['createdAt'],
-        updatedAt = map['updatedAt'];
-
+        username = map['username'] ?? '',
+        password = map['password'] ?? '',
+        email = map['email'] ?? '',
+        phone = map['phone'] ?? '',
+        address = map['address'] ?? '',
+        role = map['role'] ?? '',
+        imageURL = map['imageURL'] ?? '',
+        level = map['level'] ?? null,
+        coin = map['coin'] ?? null,
+        created_at = (map['created_at'] != null) ? Timestamp.fromDate(DateTime.parse(map['created_at'])) : null,
+        updated_at = (map['updated_at'] != null) ? Timestamp.fromDate(DateTime.parse(map['updated_at'])) : null;
+  @override
+  String toString() {
+    return 'Users {id: $id, name: $username, address: $address, phone: $phone}';
+  }
 }

@@ -7,6 +7,7 @@ import 'package:flutter/widgets.dart';
 import 'package:food_app/db/cartController.dart';
 import 'package:food_app/db/dishController.dart';
 import 'package:food_app/ui/screens/my_order_view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../constants.dart';
 import '../../db/restaurantController.dart';
@@ -23,16 +24,25 @@ class DetailDish extends StatefulWidget {
 }
 
 class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateMixin {
-  Map<int, int> cart = {};
 
   @override
   void initState() {
     super.initState();
+
     _getItem();
     _search1();
     _search2();
     _search3();
-    _getCart();
+    _getUserId().then((_) {
+      _getCart();
+    });
+  }
+
+  var user_id = 0;
+  // Lấy user_id
+  Future<void> _getUserId() async {
+    final prefs = await SharedPreferences.getInstance();
+    user_id = prefs.getInt('user_id')!;
   }
 
   void _showSnackBar(String message, Color backgroundColor) {
@@ -80,6 +90,8 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
   List<dynamic> list2 = [];
   List<dynamic> list3 = [];
   List<dynamic> list = [];
+  Map<int, Map<dynamic, dynamic>> cart = {};
+
 
   Future<void> _search1() async {
     try {
@@ -120,24 +132,6 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
       if (response.statusCode == 200) {
         setState(() {
           list3 = jsonDecode(response.body);
-          print(list3);
-        });
-      } else {
-        _showSnackBar('Server error. Please try again later.', Colors.red);
-      }
-    } catch (error) {
-      // Xử lý lỗi (nếu có)
-      print(error);
-    }
-  }
-
-  Future<void> _searchQuantity() async {
-    try {
-      ApiResponse response = await DishController().search("Đồ uống");
-      if (response.statusCode == 200) {
-        setState(() {
-          list3 = jsonDecode(response.body);
-          print(list3);
         });
       } else {
         _showSnackBar('Server error. Please try again later.', Colors.red);
@@ -150,11 +144,18 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
 
   Future<void> _getCart() async {
     try {
-      ApiResponse response = await CartController().getAll("1", widget.resID);
+      ApiResponse response = await CartController().getAll(user_id, widget.resID);
       if (response.statusCode == 200) {
         setState(() {
           list = jsonDecode(response.body);
-          print(list.length);
+          list.forEach((item) {
+            cart[item['dish_id']] = {
+              'dish_name': item['dish_name'],
+              'dish_price': item['dish_price'],
+              'dish_img': item['dish_img'],
+              'quantity': item['quantity'],
+            };
+          });
         });
       } else {
         _showSnackBar('Server error. Please try again later.', Colors.red);
@@ -318,9 +319,9 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
                         : Padding(
                       padding: EdgeInsets.all(10),
                       child: Image.asset(
-                        "assets/images/address.png",
-                        height: 60,
+                        "assets/images/image.png",
                         width: 60,
+                        height: 60,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -363,11 +364,11 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
                           Container(
                             margin: EdgeInsets.symmetric(horizontal: 10),
                             child: Text(
-                              "${cart[pObj.id] ?? 0}",
+                              "${cart[pObj.id]?['quantity'] ?? 0}",
                               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                             ),
                           ),
-                          buildQuantityButton(CupertinoIcons.add, () => onIncrement(pObj)),
+                          buildQuantityButton(CupertinoIcons.add, () => onIncrement(pObj.id)),
                         ],
                       ),
                     ),
@@ -438,7 +439,7 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
               children: [
                 Image(image: AssetImage("assets/images/cart.png")),
                 Text(
-                  "(${cart.length})",
+                  "(${getAmount()})",
                   style: TextStyle(
                     color: Constants.primaryColor,
                     fontSize: 20,
@@ -460,7 +461,7 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => MyOrderView()),
+                MaterialPageRoute(builder: (context) => MyOrderView(resID: widget.resID)),
               );
             },
             child: Container(
@@ -531,34 +532,34 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
                     itemCount: cart.length,
                     itemBuilder: (context, index) {
                       int id = cart.keys.elementAt(index);
-                      var item = getItemById(id);
+                      var item = cart[id];
                       return ListTile(
-                        leading: item.img != null ? Image.memory(
-                          base64Decode(item.img.substring('data:image/jpeg;base64,'.length)),
+                        leading: item?['dish_img']!= null ? Image.memory(
+                          base64Decode(item?['dish_img'].substring('data:image/jpeg;base64,'.length)),
                           width: 50,
                           height: 50,
                           errorBuilder: (context, error, stackTrace) => Icon(Icons.error),
                         ) : Icon(Icons.image_not_supported),
-                        title: Text(item.name),
-                        subtitle: Text("${item.price}.000đ"),
+                        title: Text(item?['dish_name']),
+                        subtitle: Text("${item?['dish_price']}.000đ"),
                         trailing: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             buildQuantityButton(CupertinoIcons.minus, () {
                               setState(() {
-                                onDecrement(item.id);
+                                onDecrement(item?['dish_id']);
                               });
                             }),
                             Container(
                               margin: EdgeInsets.symmetric(horizontal: 10),
                               child: Text(
-                                "${cart[item.id]}",
+                                "${item?['quantity']}",
                                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                               ),
                             ),
                             buildQuantityButton(CupertinoIcons.add, () {
                               setState(() {
-                                onIncrement(item);
+                                onIncrement(item?['dish_id']);
                               });
                             }),
                           ],
@@ -611,32 +612,86 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
     throw Exception('Item not found');
   }
 
-  void onDecrement(int id) {
-    setState(() {
-      if (cart[id] != null && cart[id]! > 0) {
-        cart[id] = cart[id]! - 1;
-        if (cart[id] == 0) {
-          cart.remove(id);
+  void onDecrement(int id) async {
+    if (cart[id] != null && cart[id]?['quantity'] > 1) {
+      cart[id]?['quantity']--;
+      try {
+        ApiResponse response = await CartController().update(user_id, id, widget.resID, cart[id]?['quantity']);
+        if (response.statusCode == 200) {
+          setState(() {
+            // Update state here
+          });
+        } else {
+          _showSnackBar('Server error. Please try again later.', Colors.red);
         }
+      } catch (error) {
+        print(error);
       }
-    });
+    }
+    else if (cart[id]?['quantity'] == 1) {
+      cart.remove(id);
+      try {
+        ApiResponse response = await CartController().delete(user_id, id, widget.resID);
+        if (response.statusCode == 200) {
+          setState(() {
+            // Update state here
+          });
+        } else {
+          _showSnackBar('Server error. Please try again later.', Colors.red);
+        }
+      } catch (error) {
+        print(error);
+      }
+    }
   }
 
-  void onIncrement(Dishes pObj) {
-    setState(() {
-      if (cart[pObj.id] != null) {
-        cart[pObj.id] = cart[pObj.id]! + 1;
-      } else {
-        cart[pObj.id] = 1;
+  void onIncrement(int id) async {
+    if (cart[id] != null) {
+      cart[id]?['quantity']++;
+      try {
+        ApiResponse response = await CartController().update(user_id, id, widget.resID, cart[id]?['quantity']);
+        if (response.statusCode == 200) {
+          setState(() {
+            // Update state here
+          });
+        } else {
+          _showSnackBar('Server error. Please try again later.', Colors.red);
+        }
+      } catch (error) {
+        print(error);
       }
-    });
+    }
+    else {
+      try {
+        ApiResponse response = await CartController().addCart(user_id, widget.resID, id, 1);
+        if (response.statusCode == 200) {
+          setState(() {
+            // Update state here
+          });
+        } else {
+          print(response.body);
+          _showSnackBar('Server error. Please try again later.', Colors.red);
+        }
+      } catch (error) {
+        print(error);
+      }
+      _getCart();
+    }
   }
 
-  int getTotalAmount() {
-    int total = 0;
-    cart.forEach((id, quantity) {
-      total += getItemById(id).price * quantity;
-    });
+  num getTotalAmount() {
+    num total = 0;
+    for (var item in cart.values){
+      total += item['dish_price'] * item['quantity'];
+    }
     return total;
+  }
+
+  num getAmount() {
+    num amount = 0;
+    for (var item in cart.values){
+      amount += item['quantity'];
+    }
+    return amount;
   }
 }

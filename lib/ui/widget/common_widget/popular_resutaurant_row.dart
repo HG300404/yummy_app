@@ -55,20 +55,18 @@ class PopularRestaurantRow extends StatelessWidget {
                       const SizedBox(
                         width: 8,
                       ),
-
-                        Text(
-                          pObj["open"],
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: TColor.secondaryText, fontSize: 11),
-                        ),
                       ],
                     ),
-                    
+                    Text(
+                      pObj["open"],
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: TColor.secondaryText, fontSize: 11),
+                    ),
                   ],
                 ),
              ),
-            
+
           ],
         ),
       ),

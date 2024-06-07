@@ -5,6 +5,7 @@ import 'package:food_app/constants.dart';
 import 'package:food_app/db/cartController.dart';
 import 'package:food_app/db/userController.dart';
 import 'package:food_app/model/carts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../db/restaurantController.dart';
 import '../../model/restaurants.dart';
@@ -14,22 +15,44 @@ import 'checkout_view.dart';
 
 
 class MyOrderView extends StatefulWidget {
-  const MyOrderView({super.key});
+  final int resID;
+  const MyOrderView({super.key, required this.resID});
 
   @override
   State<MyOrderView> createState() => _MyOrderViewState();
 }
 
 class _MyOrderViewState extends State<MyOrderView> {
-  int resID = 1;
-  num count = 0;
-  num total = 0;
+  num getTotalAmount() {
+    num total = 0;
+    for (var item in cart.values){
+      total += item['dish_price'] * item['quantity'];
+    }
+    return total;
+  }
+
+  num getAmount() {
+    num amount = 0;
+    for (var item in cart.values){
+      amount += item['quantity'];
+    }
+    return amount;
+  }
   @override
   void initState() {
     super.initState();
-    _getCart();
+    _getUserId().then((_) {
+      _getCart();
+    });
     _getItem();
   }
+  var user_id = 0;
+  // Lấy user_id
+  Future<void> _getUserId() async {
+    final prefs = await SharedPreferences.getInstance();
+    user_id = prefs.getInt('user_id')!;
+  }
+
   void _showSnackBar(String message, Color backgroundColor) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -57,7 +80,7 @@ class _MyOrderViewState extends State<MyOrderView> {
   );
   Future<void> _getItem() async {
     try {
-      ApiResponse response = await RestaurantController().getItem(resID);
+      ApiResponse response = await RestaurantController().getItem(widget.resID);
       if (response.statusCode == 200) {
         setState(() {
           Map<String, dynamic> data = jsonDecode(response.body);
@@ -71,13 +94,23 @@ class _MyOrderViewState extends State<MyOrderView> {
       print(error);
     }
   }
+
+  Map<int, Map<dynamic, dynamic>> cart = {};
   List<dynamic> itemArr = [];
   Future<void> _getCart() async {
     try {
-      ApiResponse response = await CartController().getAll("5", resID);
+      ApiResponse response = await CartController().getAll(user_id, widget.resID);
       if (response.statusCode == 200) {
         setState(() {
           itemArr = jsonDecode(response.body);
+          itemArr.forEach((item) {
+            cart[item['dish_id']] = {
+              'dish_name': item['dish_name'],
+              'dish_price': item['dish_price'],
+              'dish_img': item['dish_img'],
+              'quantity': item['quantity'],
+            };
+          });
         });
       } else {
         _showSnackBar('Server error. Please try again later.', Colors.red);
@@ -247,8 +280,6 @@ class _MyOrderViewState extends State<MyOrderView> {
                   )),
                   itemBuilder: ((context, index) {
                     var cObj = itemArr[index];
-                    total += (cObj["dish_price"] ?? 0) * (cObj["quantity"] ?? 0);
-                    count += cObj["quantity"];
                     return Container(
                       padding: const EdgeInsets.symmetric(
                           vertical: 15, horizontal: 25),
@@ -268,7 +299,7 @@ class _MyOrderViewState extends State<MyOrderView> {
                             width: 15,
                           ),
                           Text(
-                            "${cObj["dish_price"]}đ",
+                            "${cObj["dish_price"]}.000đ",
                             style: TextStyle(
                                 color: Constants.lightTextColor,
                                 fontSize: 13,
@@ -341,7 +372,7 @@ class _MyOrderViewState extends State<MyOrderView> {
                               fontWeight: FontWeight.w700),
                         ),
                         Text(
-                          "$count",
+                          "${getAmount()}",
                           style: TextStyle(
                               color: Constants.primaryColor,
                               fontSize: 13,
@@ -371,7 +402,7 @@ class _MyOrderViewState extends State<MyOrderView> {
                               fontWeight: FontWeight.w700),
                         ),
                         Text(
-                          "$totalđ",
+                          "${getTotalAmount()}.000đ",
                           style: TextStyle(
                               color: Constants.primaryColor,
                               fontSize: 22,
@@ -388,7 +419,7 @@ class _MyOrderViewState extends State<MyOrderView> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const CheckoutView(),
+                              builder: (context) => CheckoutView(resID: widget.resID),
                             ),
                           );
                         }),

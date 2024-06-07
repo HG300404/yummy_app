@@ -16,7 +16,12 @@ class RecentItemRow extends StatelessWidget {
     Uint8List? bytes;
     if (rObj["img"] != null && rObj["img"].startsWith(prefix)) {
       final String base64Image = rObj["img"].substring(prefix.length);
-      bytes = base64Decode(base64Image);
+      try {
+        bytes = base64Decode(base64Image);
+      } catch (e) {
+        bytes = null;
+        print("Unable to decode base64 string: $e");
+      }
     } else {
       bytes = null;
     }
@@ -27,25 +32,29 @@ class RecentItemRow extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             bytes != null
                 ? ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image.memory(bytes,  width: 70,
-                height: 70,
-                fit: BoxFit.cover,),
-            )
-                : CircularProgressIndicator(),
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.memory(
+                      bytes,
+                      width: 70,
+                      height: 70,
+                      fit: BoxFit.cover,
+                    ),
+                  )
+                : Image.asset(
+                    "assets/images/image.png",
+                    width: 70,
+                    height: 70,
+                    fit: BoxFit.cover,
+                  ),
             const SizedBox(
               width: 8,
             ),
-
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  
-                  
                   Text(
                     rObj["name"],
                     textAlign: TextAlign.center,
@@ -63,7 +72,8 @@ class RecentItemRow extends StatelessWidget {
                       Text(
                         rObj["type"],
                         textAlign: TextAlign.center,
-                        style: TextStyle(color: TColor.secondaryText, fontSize: 11),
+                        style: TextStyle(
+                            color: TColor.secondaryText, fontSize: 11),
                       ),
                       Text(
                         " . ",
@@ -73,25 +83,23 @@ class RecentItemRow extends StatelessWidget {
                       Text(
                         "${rObj["price"]}",
                         textAlign: TextAlign.center,
-                        style: TextStyle(color: TColor.secondaryText, fontSize: 12),
+                        style: TextStyle(
+                            color: TColor.secondaryText, fontSize: 12),
                       ),
                     ],
                   ),
-                    const SizedBox(
+                  const SizedBox(
                     height: 4,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      
-                     
                       Image.asset(
                         "assets/images/rate.png",
                         width: 10,
                         height: 10,
                         fit: BoxFit.cover,
                       ),
-
                       const SizedBox(
                         width: 4,
                       ),
@@ -100,13 +108,11 @@ class RecentItemRow extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: TextStyle(color: TColor.primary, fontSize: 11),
                       ),
-
-                       const SizedBox(
+                      const SizedBox(
                         width: 8,
                       ),
-
                       Text(
-                        "(${ rObj["rate"] } Ratings)",
+                        "(${rObj["rate"]} Ratings)",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: TColor.secondaryText, fontSize: 11),
