@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -7,6 +8,10 @@ import 'package:food_app/ui/screens/signin_page.dart';
 import 'package:food_app/ui/widget/common_widget/round_button.dart';
 import 'package:food_app/ui/widget/common_widget/round_textfield.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../db/userController.dart';
+import '../../model/users.dart';
 
 
 class ProfileView extends StatefulWidget {
@@ -17,6 +22,14 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView> {
+  @override
+  void initState() {
+    super.initState();
+    _getUserId().then((_) {
+      _getItem();
+    });
+  }
+
   final ImagePicker picker = ImagePicker();
   XFile? image;
 
@@ -26,6 +39,70 @@ class _ProfileViewState extends State<ProfileView> {
   TextEditingController txtAddress = TextEditingController();
   TextEditingController txtPassword = TextEditingController();
   TextEditingController txtConfirmPassword = TextEditingController();
+
+  var user_id = 0;
+  // Lấy user_id
+  Future<void> _getUserId() async {
+    final prefs = await SharedPreferences.getInstance();
+    user_id = prefs.getInt('user_id')!;
+  }
+
+  Future<void> deleteUserId() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    prefs.remove('user_id');
+  }
+
+  void _showSnackBar(String message, Color backgroundColor) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          message,
+          textAlign: TextAlign.center,
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: backgroundColor,
+        duration: Duration(seconds: 3),
+      ),
+    );
+  }
+  Users item = Users(
+    id: 0,
+    name: '',
+    password: '',
+    email: '',
+    phone: '',
+    address: '',
+    role: '',
+    imageURL: '',
+    level: 0,
+    coin: 0,
+    created_at: null,
+    updated_at: null,
+  );
+  Future<void> _getItem() async {
+    try {
+      ApiResponse response = await UserController().getItem(user_id);
+      if (response.statusCode == 200) {
+        setState(() {
+          Map<String, dynamic> data = jsonDecode(response.body);
+          item = Users.fromMap(data);
+          // Gán giá trị từ `item` vào `TextEditingController`
+          txtName.text = item.name ?? '';
+          txtEmail.text = item.email ?? '';
+          txtMobile.text = item.phone ?? '';
+          txtAddress.text = item.address ?? '';
+          txtPassword.text = '';
+          txtConfirmPassword.text = '';
+        });
+      } else {
+        _showSnackBar('Server error. Please try again later.', Colors.red);
+      }
+    } catch (error) {
+      // Xử lý lỗi (nếu có)
+      print(error);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +178,7 @@ class _ProfileViewState extends State<ProfileView> {
                 ),
               ),
               Text(
-                "Xin chào Phước An!",
+                "Xin chào ${item.name}!",
                 style: TextStyle(
                     color: Constants.primaryColor,
                     fontSize: 16,
@@ -109,6 +186,7 @@ class _ProfileViewState extends State<ProfileView> {
               ),
               TextButton(
                 onPressed: () {
+                  deleteUserId();
                   Navigator.push(
                       context,
                       MaterialPageRoute(

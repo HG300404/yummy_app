@@ -28,7 +28,6 @@ class CartController {
 
   //getAll
   Future<ApiResponse> getAll(int user_id, int restaurant_id) async {
-    print("aaa ${user_id} : ${restaurant_id}");
     var url = Uri.parse('http://10.0.2.2:8000/api/cart/getAll/${user_id}/${restaurant_id}');
     var response = await http.get(
       url,
@@ -36,7 +35,6 @@ class CartController {
         'Content-Type': 'application/json; charset=UTF-8',
       },
     );
-    print(response.body);
     ApiResponse apiResponse = ApiResponse(response.statusCode, response.body);
     return apiResponse;
   }

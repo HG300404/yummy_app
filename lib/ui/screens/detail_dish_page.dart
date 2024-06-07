@@ -487,7 +487,7 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
 
   Widget buildCartPopup(BuildContext context) {
     return FractionallySizedBox(
-      heightFactor: 0.67, // Chiều cao 2/3 màn hình
+      heightFactor: 0.67,
       child: StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
           return Container(

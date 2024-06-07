@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Users {
   final int id;
-  final String username;
+  final String name;
   final String ? password;
   final String email;
   final String ? phone;
@@ -17,7 +17,7 @@ class Users {
   const Users(
    {
      required this.id,
-     required this.username,
+     required this.name,
       this.password,
      required this.email,
       this.phone,
@@ -34,7 +34,7 @@ class Users {
   Map<String, Object?> toMap() {
     return {
       'user_id': id,
-      'username': username,
+      'name': name,
       'password': password,
       'email': email,
       'phone': phone,
@@ -50,7 +50,7 @@ class Users {
   // Tạo đối tượng Task từ Map
   Users.fromMap(Map<String, dynamic> map)
       : id = map['id'],
-        username = map['username'] ?? '',
+        name = map['name'] ?? '',
         password = map['password'] ?? '',
         email = map['email'] ?? '',
         phone = map['phone'] ?? '',
@@ -63,6 +63,6 @@ class Users {
         updated_at = (map['updated_at'] != null) ? Timestamp.fromDate(DateTime.parse(map['updated_at'])) : null;
   @override
   String toString() {
-    return 'Users {id: $id, name: $username, address: $address, phone: $phone}';
+    return 'Users {id: $id, name: $name, address: $address, phone: $phone}';
   }
 }

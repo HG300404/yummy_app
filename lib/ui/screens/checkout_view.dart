@@ -60,7 +60,7 @@ class _CheckoutViewState extends State<CheckoutView> {
   }
   Users item = Users(
     id: 0,
-    username: '',
+    name: '',
     password: '',
     email: '',
     phone: '',
@@ -186,7 +186,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                       children: [
                         Expanded(
                           child: Text(
-                            "${item.username}\n${item.address}\n${item.phone}",
+                            "${item.name}\n${item.address}\n${item.phone}",
                             style: TextStyle(
                                 color: Constants.lightTextColor,
                                 fontSize: 15,

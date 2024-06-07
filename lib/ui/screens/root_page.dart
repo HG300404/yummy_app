@@ -2,6 +2,7 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:flutter/material.dart';
 import 'package:food_app/constants.dart';
 import 'package:food_app/ui/screens/home_page.dart';
+import 'package:food_app/ui/screens/orderScreen.dart';
 import 'package:food_app/ui/screens/profile_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -17,9 +18,9 @@ class _RootPageState extends State<RootPage> {
   int _bottomNavIndex = 0;
 
   // List of the page
-  List<Widget> pages = const [
+  List<Widget> pages =  [
     HomePage(),
-    // FavoritePage(),
+    OrderScreen(),
     ProfileView(),
   ];
 
@@ -32,28 +33,6 @@ class _RootPageState extends State<RootPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              titleList[_bottomNavIndex],
-              style: TextStyle(
-                color: Constants.textColor,
-                fontWeight: FontWeight.w500,
-                fontSize: 24,
-              ),
-            ),
-            Icon(
-              Icons.notifications,
-              color: Constants.textColor,
-              size: 30.0,
-            )
-          ],
-        ),
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        elevation: 0.0,
-      ),
       body: IndexedStack(
         index: _bottomNavIndex,
         children: pages,
