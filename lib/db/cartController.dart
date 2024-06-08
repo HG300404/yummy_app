@@ -21,7 +21,7 @@ class CartController {
         'quantity': quantity,
       }),
     );
-
+    print(response.body);
     ApiResponse apiResponse = ApiResponse(response.statusCode, response.body);
     return apiResponse;
   }
@@ -72,5 +72,20 @@ class CartController {
     ApiResponse apiResponse = ApiResponse(response.statusCode, response.body);
     return apiResponse;
   }
+
+
+  //getAll
+  Future<ApiResponse> getAllByUser(int user_id) async {
+    var url = Uri.parse('http://10.0.2.2:8000/api/cart/getAll/${user_id}');
+    var response = await http.get(
+      url,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+    ApiResponse apiResponse = ApiResponse(response.statusCode, response.body);
+    return apiResponse;
+  }
+
 
 }

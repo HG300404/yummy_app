@@ -121,6 +121,7 @@ class _MyOrderViewState extends State<MyOrderView> {
     }
   }
   bool _showInputField = false;
+  final _noteController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -345,7 +346,7 @@ class _MyOrderViewState extends State<MyOrderView> {
                         if (_showInputField)
                           Expanded(
                             child: TextField(
-                              // Định cấu hình TextField cho phù hợp với yêu cầu của bạn
+                              controller: _noteController,
                               decoration: InputDecoration(
                                 hintText: "Nhập ghi chú tại đây...",
                               ),
@@ -419,7 +420,7 @@ class _MyOrderViewState extends State<MyOrderView> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => CheckoutView(resID: widget.resID),
+                              builder: (context) => CheckoutView(resID: widget.resID, note: _noteController.text ?? "" ),
                             ),
                           );
                         }),

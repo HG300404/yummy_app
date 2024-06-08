@@ -1,14 +1,20 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:food_app/constants.dart';
+import 'package:food_app/model/dishes.dart';
 import 'package:food_app/ui/screens/detail_dish_page.dart';
 import 'package:food_app/ui/screens/reviewScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../db/cartController.dart';
+import '../../db/firebaseController.dart';
 import '../../db/orderController.dart';
+import '../../db/restaurantController.dart';
 import '../../db/userController.dart';
-
+import '../../model/firebaseModel.dart';
+import '../../model/restaurants.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -24,7 +30,8 @@ class OrderScreen extends StatefulWidget {
   _OrderScreenState createState() => _OrderScreenState();
 }
 
-class _OrderScreenState extends State<OrderScreen> with SingleTickerProviderStateMixin {
+class _OrderScreenState extends State<OrderScreen>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -61,7 +68,7 @@ class _OrderScreenState extends State<OrderScreen> with SingleTickerProviderStat
   Map<int, Map<dynamic, dynamic>> cart = {};
   Future<void> _getItem() async {
     try {
-      ApiResponse response = await OrderController().getAll(user_id);
+      ApiResponse response = await CartController().getAllByUser(user_id);
       if (response.statusCode == 200) {
         setState(() {
           list = jsonDecode(response.body);
@@ -82,6 +89,7 @@ class _OrderScreenState extends State<OrderScreen> with SingleTickerProviderStat
       print(error);
     }
   }
+
   @override
   void dispose() {
     _tabController.dispose();
@@ -92,7 +100,9 @@ class _OrderScreenState extends State<OrderScreen> with SingleTickerProviderStat
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Đơn hàng', style: TextStyle(color: Constants.white, fontWeight: FontWeight.bold)),
+        title: Text('Đơn hàng',
+            style:
+                TextStyle(color: Constants.white, fontWeight: FontWeight.bold)),
         backgroundColor: Constants.primaryColor,
         bottom: TabBar(
           controller: _tabController,
@@ -120,81 +130,229 @@ class _OrderScreenState extends State<OrderScreen> with SingleTickerProviderStat
 }
 
 class DangDenTab extends StatelessWidget {
-  final List<Map<String, dynamic>> orders = [
-    {
-      'id': '#06064-784530415',
-      'shop': 'Bee Milktea & Coffee - Nguyễn Phước Lan',
-      'items': [
-        {'name': 'Trà mãng cầu size L', 'image': 'assets/images/item_1.png'},
-        {'name': 'Trà sữa thái xanh', 'image': 'assets/images/item_2.png'}
-      ],
-      'total': 110050,
-      'status': 'Đang giao',
-      'deliveryTime': '22:35 Hôm nay'
-    },
-  ];
+
+  Future<int> _getUserId() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getInt('user_id') ?? 0;
+  }
+
+
+  final FirebaseController _controller = FirebaseController();
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: orders.length,
-      itemBuilder: (context, index) {
-        final order = orders[index];
-        return Card(
-          margin: EdgeInsets.all(10),
-          color: Constants.backgroundTable,
-          child: Padding(
-            padding: EdgeInsets.all(10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Đồ ăn ${order['id']}', style: TextStyle(color: Constants.highlightColor, fontSize: 15)),
-                SizedBox(height: 5),
-                Text(order['shop'], style: TextStyle(color: Constants.accentColor, fontSize: 18, fontWeight: FontWeight.bold)),
-                SizedBox(height: 5),
-                Row(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: order['items'].map<Widget>((item) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 5.0),
-                          child: Row(
+    return FutureBuilder<int>(
+        future: _getUserId(),
+    builder: (context, snapshot) {
+    if (snapshot.connectionState == ConnectionState.waiting) {
+    return Center(child: CircularProgressIndicator());
+    } else if (snapshot.hasError) {
+    return Text("Error: ${snapshot.error}");
+    } else {
+      final user_id = snapshot.data ?? 0;
+      return StreamBuilder<List<FirebaseModel>>(
+        stream: _controller.getAll(user_id.toInt()),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return Center(child: CircularProgressIndicator());
+          } else {
+            final orders = snapshot.data;
+            return ListView.builder(
+              itemCount: orders?.length,
+              itemBuilder: (context, index) {
+                final order = orders?[index];
+
+                Future<Restaurants> _getItem(int resId) async {
+                  Restaurants res = Restaurants(
+                    id: 0,
+                    name: '',
+                    address: '',
+                    phone: '',
+                    opening_hours: '',
+                    created_at: null,
+                    updated_at: null,
+                  );
+
+                  try {
+                    ApiResponse response =
+                    await RestaurantController().getItem(resId);
+
+                    if (response.statusCode == 200) {
+                      Map<String, dynamic> data = jsonDecode(response.body);
+                      res = Restaurants.fromMap(data);
+                    }
+                  } catch (error) {
+                    print(error);
+                  }
+
+                  return res;
+                }
+
+                return FutureBuilder<Restaurants>(
+                  future: _getItem(order!.res_id),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return CircularProgressIndicator();
+                    } else if (snapshot.hasError) {
+                      return Text("Error: ${snapshot.error}");
+                    } else {
+                      Restaurants? res = snapshot.data;
+                      return Card(
+                        margin: EdgeInsets.all(10),
+                        color: Constants.backgroundTable,
+                        child: Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Image.asset(item['image'], height: 60),
-                              SizedBox(width: 10),
-                              Text(item['name'], style: TextStyle(color: Constants.textColor, fontSize: 15)),
+                              Text('Đồ ăn ${order.order_id}',
+                                  style: TextStyle(
+                                      color: Constants.highlightColor,
+                                      fontSize: 15)),
+                              SizedBox(height: 5),
+                              Text("${res?.name}",
+                                  style: TextStyle(
+                                      color: Constants.accentColor,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold)),
+                              SizedBox(height: 5),
+                              FutureBuilder(
+                                future: OrderController()
+                                    .getAllByOrder(order!.order_id),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return CircularProgressIndicator();
+                                  } else if (snapshot.hasError) {
+                                    return Text("Error: ${snapshot.error}");
+                                  } else {
+                                    List<dynamic> list =
+                                    jsonDecode(snapshot.data!.body);
+                                    return ListView.builder(
+                                      shrinkWrap: true,
+                                      physics: NeverScrollableScrollPhysics(),
+                                      itemCount: list.length,
+                                      itemBuilder: (context, index) {
+                                        var orderItem = list[index];
+
+                                        return Row(
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                              children: (orderItem['dishes'] as List).map<Widget>((item) {
+                                                final prefix = 'data:image/jpeg;base64,';
+                                                Uint8List? bytes;
+                                                if (item['img'] != null && item['img'].startsWith(prefix)) {
+                                                  var base64Image = item['img'].substring(prefix.length);
+                                                  if (base64Image.length % 4 == 0) {
+                                                    try {
+                                                      bytes = base64Decode(base64Image);
+                                                    } on FormatException {
+                                                      print('Không thể giải mã hình ảnh: dữ liệu base64 không hợp lệ.');
+                                                      bytes = null;
+                                                    }
+                                                  } else {
+                                                    print('Dữ liệu hình ảnh bị hỏng: độ dài không phải là bội số của 4.');
+                                                    bytes = null;
+                                                  }
+                                                } else {
+                                                  bytes = null;
+                                                }
+                                                return Padding(
+                                                  padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 5.0),
+                                                  child: Row(
+                                                    children: [
+                                                      bytes != null
+                                                          ? Padding(
+                                                        padding: EdgeInsets.all(10),
+                                                        child: Image.memory(
+                                                          bytes,
+                                                          width: 60,
+                                                          height: 60,
+                                                          fit: BoxFit.cover,
+                                                          errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                                                            return const Icon(Icons.error);
+                                                          },
+                                                        ),
+                                                      )
+                                                          : Padding(
+                                                        padding: EdgeInsets.all(10),
+                                                        child: Image.asset(
+                                                          "assets/images/image.png",
+                                                          width: 60,
+                                                          height: 60,
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      ),
+                                                      SizedBox(width: 10),
+                                                      Text(
+                                                        item['dish_name'],
+                                                        style: TextStyle(
+                                                          color: Constants
+                                                              .textColor,
+                                                          fontSize: 15,
+                                                        ),
+                                                      ),
+                                                      SizedBox(width: 10),
+                                                      Text(
+                                                        "${item['quantity']}",
+                                                        style: TextStyle(
+                                                          color: Constants
+                                                              .textColor,
+                                                          fontSize: 15,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                );
+                                              }).toList(),
+                                            ),
+                                            Spacer(),
+                                            Column(
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                              children: [
+                                                Text(
+                                                  '${order.total}.000đ',
+                                                  style: TextStyle(
+                                                    color: Constants.primaryColor,
+                                                    fontSize: 16,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '${orderItem['length']} món',
+                                                  style: TextStyle(
+                                                    color: Constants
+                                                        .lightTextColor,
+                                                    fontSize: 16,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  }
+                                },
+                              ),
                             ],
                           ),
-                        );
-                      }).toList(),
-                    ),
-                    Spacer(),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text('${order['total']}đ', style: TextStyle(color: Constants.primaryColor, fontSize: 16)),
-                        Text('${order['items'].length} món', style: TextStyle(color: Constants.lightTextColor, fontSize: 16)),
-                      ],
-                    )
-                  ],
-                ),
-                SizedBox(height: 5),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(order['status'], style: TextStyle(color: Constants.textColor, fontWeight: FontWeight.bold)),
-                      Text('Dự kiến giao: ${order['deliveryTime']}', style: TextStyle(color: Constants.textColor, fontWeight: FontWeight.bold)),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
+                        ),
+                      );
+                    }
+                  },
+                );
+              },
+            );
+          }
+        },
+      );
+    }
+    },
     );
   }
 }
@@ -225,9 +383,11 @@ class LichSuTab extends StatelessWidget {
             children: [
               Icon(Icons.monetization_on, color: Colors.yellow),
               SizedBox(width: 10),
-              Text('Đánh giá quán, nhận ngay 500 Xu', style: TextStyle(color: Constants.textColor, fontSize: 16)),
+              Text('Đánh giá quán, nhận ngay 500 Xu',
+                  style: TextStyle(color: Constants.textColor, fontSize: 16)),
               Spacer(),
-              Icon(Icons.arrow_forward_ios, size: 16, color: Constants.textColor),
+              Icon(Icons.arrow_forward_ios,
+                  size: 16, color: Constants.textColor),
             ],
           ),
         ),
@@ -244,9 +404,15 @@ class LichSuTab extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Đồ ăn ${order['id']}', style: TextStyle(color: Constants.textColor, fontSize: 16)),
+                      Text('Đồ ăn ${order['id']}',
+                          style: TextStyle(
+                              color: Constants.textColor, fontSize: 16)),
                       SizedBox(height: 5),
-                      Text(order['shop'], style: TextStyle(color: Constants.accentColor, fontSize: 18, fontWeight: FontWeight.bold)),
+                      Text(order['shop'],
+                          style: TextStyle(
+                              color: Constants.accentColor,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold)),
                       SizedBox(height: 5),
                       Row(
                         children: [
@@ -254,12 +420,16 @@ class LichSuTab extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: order['items'].map<Widget>((item) {
                               return Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 5.0),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 5.0),
                                 child: Row(
                                   children: [
                                     Image.asset(item['image'], height: 60),
                                     SizedBox(width: 10),
-                                    Text(item['name'], style: TextStyle(color: Constants.textColor, fontSize: 16)),
+                                    Text(item['name'],
+                                        style: TextStyle(
+                                            color: Constants.textColor,
+                                            fontSize: 16)),
                                   ],
                                 ),
                               );
@@ -269,9 +439,17 @@ class LichSuTab extends StatelessWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              Text('${order['total']}đ', style: TextStyle(color: Constants.primaryColor, fontSize: 16)),
-                              Text('${order['items'].length} món', style: TextStyle(color: Constants.lightTextColor, fontSize: 16)),
-                              Text('Ngày đặt: ${order['date']}', style: TextStyle(color: Constants.lightTextColor)),
+                              Text('${order['total']}đ',
+                                  style: TextStyle(
+                                      color: Constants.primaryColor,
+                                      fontSize: 16)),
+                              Text('${order['items'].length} món',
+                                  style: TextStyle(
+                                      color: Constants.lightTextColor,
+                                      fontSize: 16)),
+                              Text('Ngày đặt: ${order['date']}',
+                                  style: TextStyle(
+                                      color: Constants.lightTextColor)),
                             ],
                           )
                         ],
@@ -283,7 +461,8 @@ class LichSuTab extends StatelessWidget {
                           Expanded(
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                foregroundColor: Colors.white, backgroundColor: Colors.pinkAccent,
+                                foregroundColor: Colors.white,
+                                backgroundColor: Colors.pinkAccent,
                               ),
                               onPressed: () {},
                               child: Text(order['status']),
@@ -293,7 +472,8 @@ class LichSuTab extends StatelessWidget {
                           Expanded(
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                foregroundColor: Colors.pinkAccent, backgroundColor: Colors.white,
+                                foregroundColor: Colors.pinkAccent,
+                                backgroundColor: Colors.white,
                               ),
                               onPressed: () {},
                               child: Text('Đặt lại'),
@@ -348,11 +528,18 @@ class DanhGiaTab extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(review['shop'], style: TextStyle(color: Constants.accentColor, fontSize: 18, fontWeight: FontWeight.bold)),
+                      Text(review['shop'],
+                          style: TextStyle(
+                              color: Constants.accentColor,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold)),
                       SizedBox(height: 5),
-                      Text(review['item'], style: TextStyle(color: Constants.textColor, fontSize: 15)),
+                      Text(review['item'],
+                          style: TextStyle(
+                              color: Constants.textColor, fontSize: 15)),
                       SizedBox(height: 5),
-                      Text('Chỉ còn ${review['daysLeft']} ngày để đánh giá', style: TextStyle(color: Constants.lightTextColor)),
+                      Text('Chỉ còn ${review['daysLeft']} ngày để đánh giá',
+                          style: TextStyle(color: Constants.lightTextColor)),
                     ],
                   ),
                 ),
@@ -365,10 +552,12 @@ class DanhGiaTab extends StatelessWidget {
                   },
                   child: Row(
                     children: [
-                      Text('Đánh giá', style: TextStyle(color: Constants.accentColor)),
+                      Text('Đánh giá',
+                          style: TextStyle(color: Constants.accentColor)),
                       SizedBox(width: 5),
                       Icon(Icons.monetization_on, color: Colors.yellow),
-                      Text('200', style: TextStyle(color: Constants.accentColor)),
+                      Text('200',
+                          style: TextStyle(color: Constants.accentColor)),
                     ],
                   ),
                   style: TextButton.styleFrom(
@@ -385,11 +574,9 @@ class DanhGiaTab extends StatelessWidget {
 }
 
 class GioHangTab extends StatelessWidget {
-
   final Map<int, Map<dynamic, dynamic>> cart;
 
   GioHangTab(this.cart);
-
 
   @override
   Widget build(BuildContext context) {
@@ -398,7 +585,8 @@ class GioHangTab extends StatelessWidget {
       itemBuilder: (context, index) {
         int id = cart.keys.elementAt(index);
         var item = cart[id];
-        return GestureDetector( // Sử dụng GestureDetector
+        return GestureDetector(
+          // Sử dụng GestureDetector
           onTap: () {
             // Navigate to HomePage when card is tapped
             Navigator.push(
@@ -413,22 +601,33 @@ class GioHangTab extends StatelessWidget {
               padding: EdgeInsets.all(10),
               child: Row(
                 children: [
-                  item?['img']!= null ? Image.memory(
-                    base64Decode(item?['img'].substring('data:image/jpeg;base64,'.length)),
-                    width: 60,
-                    height: 60,
-                    errorBuilder: (context, error, stackTrace) => Icon(Icons.error),
-                  ) : Icon(Icons.image_not_supported),
+                  item?['img'] != null
+                      ? Image.memory(
+                          base64Decode(item?['img']
+                              .substring('data:image/jpeg;base64,'.length)),
+                          width: 60,
+                          height: 60,
+                          errorBuilder: (context, error, stackTrace) =>
+                              Icon(Icons.error),
+                        )
+                      : Icon(Icons.image_not_supported),
                   SizedBox(width: 10),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(item?['restaurant_name'], style: TextStyle(color: Constants.accentColor, fontSize: 18, fontWeight: FontWeight.bold)),
+                        Text(item?['restaurant_name'],
+                            style: TextStyle(
+                                color: Constants.accentColor,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold)),
                         SizedBox(height: 5),
-                        Text(item?['address'], style: TextStyle(color: Constants.textColor, fontSize: 15)),
+                        Text(item?['address'],
+                            style: TextStyle(
+                                color: Constants.textColor, fontSize: 15)),
                         SizedBox(height: 5),
-                        Text("${item?['count']} sản phẩm", style: TextStyle(color: Constants.lightTextColor)),
+                        Text("${item?['count']} sản phẩm",
+                            style: TextStyle(color: Constants.lightTextColor)),
                       ],
                     ),
                   ),

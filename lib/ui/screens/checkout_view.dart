@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:food_app/constants.dart';
+import 'package:food_app/db/orderController.dart';
+import 'package:food_app/model/orders.dart';
 import 'package:food_app/ui/screens/change_info_view.dart';
 import 'package:food_app/ui/widget/common_widget/round_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -16,7 +18,8 @@ import 'checkout_message_view.dart';
 
 class CheckoutView extends StatefulWidget {
   final int resID;
-  const CheckoutView({super.key, required this.resID});
+  final String note;
+  const CheckoutView({super.key, required this.resID,  required this.note});
 
   @override
   State<CheckoutView> createState() => _CheckoutViewState();
@@ -112,6 +115,63 @@ class _CheckoutViewState extends State<CheckoutView> {
     } catch (error) {
       // Xử lý lỗi (nếu có)
       print(error);
+    }
+  }
+
+
+  Orders order = Orders(
+    id: 0,
+    user_id: 0,
+    restaurant_id: 0,
+    price: 0,
+    ship: 0,
+    discount: 0,
+    total_amount: 0,
+    payment: '',
+    created_at: null,
+    updated_at: null,
+  );
+  Future<void> createOrder() async {
+    try {
+      ApiResponse response = await OrderController().createOrder(user_id, widget.resID, getTotalAmount().toInt(), 5 , item.coin, getTotal().toInt(), selectMethod);
+      if (response.statusCode == 200) {
+        setState(() {
+          Map<String, dynamic> data = jsonDecode(response.body);
+          order = Orders.fromMap(data);
+        });
+      } else {
+        _showSnackBar('Server error. Please try again later.', Colors.red);
+      }
+    } catch (error) {
+      // Xử lý lỗi (nếu có)
+      print(error);
+    }
+  }
+  Future<void> createOrderItem() async {
+    try {
+      ApiResponse response = await OrderController().createOrderItem(order.id.toString(), user_id.toString(), widget.resID.toString(), widget.note);
+      if (response.statusCode == 200) {
+        // setState(() {
+        //   list = jsonDecode(response.body);
+        //
+        // });
+      } else {
+        _showSnackBar('Server error. Please try again later.', Colors.red);
+      }
+    } catch (error) {
+      // Xử lý lỗi (nếu có)
+      print(error);
+    }
+  }
+
+  Future<bool> handleOrderCreation() async {
+    try {
+      await createOrder();
+      await createOrderItem();
+      return true;
+    } catch (error) {
+      print(error);
+      return false;
     }
   }
 
@@ -442,13 +502,19 @@ class _CheckoutViewState extends State<CheckoutView> {
                 child: RoundButton(
                     title: "Đặt hàng",
                     onPressed: () {
-                      showModalBottomSheet(
-                          context: context,
-                          backgroundColor: Colors.pinkAccent,
-                          isScrollControlled: true,
-                          builder: (context) {
-                            return const CheckoutMessageView();
-                          });
+                      handleOrderCreation().then((success) {
+                        if (success) {
+                          showModalBottomSheet(
+                              context: context,
+                              backgroundColor: Colors.pinkAccent,
+                              isScrollControlled: true,
+                              builder: (context) {
+                                return const CheckoutMessageView();
+                              });
+                        } else {
+                          print('Order creation failed');
+                        }
+                      });
                     }),
               ),
             ],
