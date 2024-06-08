@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:food_app/constants.dart';
 
 import '../common/color_extension.dart';
 
@@ -63,7 +64,7 @@ class MostPopularCell extends StatelessWidget {
                 Text(
                 " . ",
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: TColor.primary, fontSize: 12),
+                  style: TextStyle(color: Constants.primaryColor, fontSize: 12),
                 ),
 
                 Text(
@@ -88,17 +89,17 @@ class MostPopularCell extends StatelessWidget {
                 Text(
                   "${mObj["rate"]}",
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: TColor.primary, fontSize: 12),
+                  style: TextStyle(color: Constants.primaryColor, fontSize: 12),
                 ),
                 Text(
                   " . ",
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: TColor.primary, fontSize: 12),
+                  style: TextStyle(color: Constants.primaryColor, fontSize: 12),
                 ),
                 Text(
                   "${mObj["price"]}đ",
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: TColor.primary, fontSize: 12),
+                  style: TextStyle(color: Constants.primaryColor, fontSize: 12),
                 ),
               ],
             ),

@@ -174,57 +174,70 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
     return Scaffold(
       body: Column(
         children: [
-          Align(
-            alignment: Alignment.topRight,
-            child: IconButton(
-              onPressed: () {
-                // Các hành động của bạn ở đây
-              },
-              icon: Icon(
-                Icons.favorite_outlined,
-                color: Constants.primaryColor,
-                size: 25,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: Text(
-              "${item.name}",
-              style: TextStyle(
-                color: Constants.primaryColor,
-                fontSize: 30.0,
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-          ),
-          Row(
-            children: <Widget>[
-              Image(image: AssetImage("assets/images/address.png")),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25),
-                  child: Text(
-                    "${item.address}",
-                    style: TextStyle(fontSize: 20.0),
+          Stack(
+            children: [
+              Container(
+                height: MediaQuery.of(context).size.height * 0.25,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/offer_1.png'),
+                    fit: BoxFit.cover,
                   ),
+                ),
+              ),
+              Positioned(
+                top: MediaQuery.of(context).padding.top,
+                left: 10,
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back, color: Colors.white),
+                  onPressed: () => Navigator.of(context).pop(),
                 ),
               ),
             ],
           ),
-          Row(
-            children: <Widget>[
-              Image(image: AssetImage("assets/images/phone.png")),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25),
-                  child: Text(
-                    "${item.phone}  -  ${item.opening_hours}",
-                    style: TextStyle(fontSize: 20.0),
+          Container(
+            color: Colors.white,
+            child: Padding(
+              padding: EdgeInsets.all(16),
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    backgroundImage: AssetImage('assets/images/item_1.png'),
+                    radius: 40,
                   ),
-                ),
+                  SizedBox(width: 10),
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(Icons.star, color: Colors.orange, size: 16),
+                            SizedBox(width: 5),
+                            Text(
+                              "${item.total_rate}",
+                              style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                        Text(
+                          "${item.name}",
+                          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
+                        Text(
+                          "${item.address}  -  ${item.opening_hours}",
+                          style: TextStyle(fontSize: 16, color: Colors.grey),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
           Expanded(
             child: DefaultTabController(
@@ -250,9 +263,9 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
               ),
             ),
           ),
-          buildCartButton(context),
         ],
       ),
+      bottomNavigationBar: buildCartButton(context),
     );
   }
 
@@ -422,65 +435,65 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
         ],
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+          InkWell(
+          onTap: () {
+    showModalBottomSheet(
+    context: context,
+    builder: (context) {
+    return buildCartPopup(context);
+    },
+    isScrollControlled: true,
+    );
+    },
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          InkWell(
-            onTap: () {
-              showModalBottomSheet(
-                context: context,
-                builder: (context) {
-                  return buildCartPopup(context);
-                },
-                isScrollControlled: true,
-              );
-            },
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Image(image: AssetImage("assets/images/cart.png")),
-                Text(
-                  "(${getAmount()})",
-                  style: TextStyle(
-                    color: Constants.primaryColor,
-                    fontSize: 20,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
-          ),
+          Image(image: AssetImage("assets/images/cart.png")),
           Text(
-            "${getTotalAmount()}.000đ",
+            "(${getAmount()})",
             style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w700,
               color: Constants.primaryColor,
+              fontSize: 20,
             ),
-          ),
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => MyOrderView(resID: widget.resID)),
-              );
-            },
-            child: Container(
-              padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-              decoration: BoxDecoration(
-                color: Constants.primaryColor,
-                borderRadius: BorderRadius.circular(30),
-              ),
-              child: Text(
-                "Đặt hàng",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
+            textAlign: TextAlign.center,
           ),
         ],
+      ),
+    ),
+    Text(
+    "${getTotalAmount()}.000đ",
+    style: TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.w700,
+    color: Constants.primaryColor,
+    ),
+    ),
+    InkWell(
+    onTap: () {
+    Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => MyOrderView(resID: widget.resID)),
+    );
+    },
+    child: Container(
+    padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+    decoration: BoxDecoration(
+    color: Constants.primaryColor,
+    borderRadius: BorderRadius.circular(30),
+    ),
+    child: Text(
+    "Đặt hàng",
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 18,
+        fontWeight: FontWeight.w500,
+      ),
+    ),
+    ),
+    ),
+          ],
       ),
     );
   }
@@ -534,12 +547,14 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
                       int id = cart.keys.elementAt(index);
                       var item = cart[id];
                       return ListTile(
-                        leading: item?['dish_img']!= null ? Image.memory(
+                        leading: item?['dish_img'] != null
+                            ? Image.memory(
                           base64Decode(item?['dish_img'].substring('data:image/jpeg;base64,'.length)),
                           width: 50,
                           height: 50,
                           errorBuilder: (context, error, stackTrace) => Icon(Icons.error),
-                        ) : Icon(Icons.image_not_supported),
+                        )
+                            : Icon(Icons.image_not_supported),
                         title: Text(item?['dish_name']),
                         subtitle: Text("${item?['dish_price']}.000đ"),
                         trailing: Row(
@@ -627,8 +642,7 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
       } catch (error) {
         print(error);
       }
-    }
-    else if (cart[id]?['quantity'] == 1) {
+    } else if (cart[id]?['quantity'] == 1) {
       cart.remove(id);
       try {
         ApiResponse response = await CartController().delete(user_id, id, widget.resID);
@@ -660,8 +674,7 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
       } catch (error) {
         print(error);
       }
-    }
-    else {
+    } else {
       try {
         ApiResponse response = await CartController().addCart(user_id, widget.resID, id, 1);
         if (response.statusCode == 200) {
@@ -681,7 +694,7 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
 
   num getTotalAmount() {
     num total = 0;
-    for (var item in cart.values){
+    for (var item in cart.values) {
       total += item['dish_price'] * item['quantity'];
     }
     return total;
@@ -689,9 +702,10 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
 
   num getAmount() {
     num amount = 0;
-    for (var item in cart.values){
+    for (var item in cart.values) {
       amount += item['quantity'];
     }
     return amount;
   }
 }
+

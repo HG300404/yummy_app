@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:food_app/constants.dart';
 
 import '../common/color_extension.dart';
 
@@ -59,7 +60,7 @@ class RecentItemRow extends StatelessWidget {
                     rObj["name"],
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        color: TColor.primaryText,
+                        color: Constants.primaryColor,
                         fontSize: 18,
                         fontWeight: FontWeight.w700),
                   ),
@@ -78,7 +79,7 @@ class RecentItemRow extends StatelessWidget {
                       Text(
                         " . ",
                         textAlign: TextAlign.center,
-                        style: TextStyle(color: TColor.primary, fontSize: 11),
+                        style: TextStyle(color: Constants.primaryColor, fontSize: 11),
                       ),
                       Text(
                         "${rObj["price"]}",
@@ -106,7 +107,7 @@ class RecentItemRow extends StatelessWidget {
                       Text(
                         rObj["restaurant_name"],
                         textAlign: TextAlign.center,
-                        style: TextStyle(color: TColor.primary, fontSize: 11),
+                        style: TextStyle(color: Constants.primaryColor, fontSize: 11),
                       ),
                       const SizedBox(
                         width: 8,

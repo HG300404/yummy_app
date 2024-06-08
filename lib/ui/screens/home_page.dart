@@ -1,11 +1,10 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:food_app/constants.dart';
 import 'package:food_app/db/dishController.dart';
 import 'package:food_app/db/restaurantController.dart';
-import 'package:food_app/ui/screens/my_order_view.dart';
-import 'package:food_app/ui/screens/signin_page.dart';
+import 'package:food_app/ui/screens/searchPage.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../db/userController.dart';
@@ -17,7 +16,6 @@ import '../widget/common_widget/round_textfield.dart';
 import '../widget/common_widget/view_all_title_row.dart';
 
 class HomePage extends StatefulWidget {
-  // final int userID;
   const HomePage({super.key});
 
   @override
@@ -26,6 +24,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   TextEditingController txtSearch = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -34,8 +33,9 @@ class _HomePageState extends State<HomePage> {
     _getRecent();
     getUserId();
   }
- var user_id = 0;
-  // Lấy user_id
+
+  var user_id = 0;
+
   Future<int?> getUserId() async {
     final prefs = await SharedPreferences.getInstance();
     user_id = prefs.getInt('user_id')!;
@@ -59,6 +59,7 @@ class _HomePageState extends State<HomePage> {
   List<dynamic> topDishes = [];
   List<dynamic> topRes = [];
   List<dynamic> dishRecent = [];
+
   Future<void> _getTopDishes() async {
     try {
       ApiResponse response = await DishController().getTop();
@@ -70,7 +71,6 @@ class _HomePageState extends State<HomePage> {
         _showSnackBar('Server error. Please try again later.', Colors.red);
       }
     } catch (error) {
-      // Xử lý lỗi (nếu có)
       print(error);
     }
   }
@@ -86,7 +86,6 @@ class _HomePageState extends State<HomePage> {
         _showSnackBar('Server error. Please try again later.', Colors.red);
       }
     } catch (error) {
-      // Xử lý lỗi (nếu có)
       print(error);
     }
   }
@@ -102,7 +101,6 @@ class _HomePageState extends State<HomePage> {
         _showSnackBar('Server error. Please try again later.', Colors.red);
       }
     } catch (error) {
-      // Xử lý lỗi (nếu có)
       print(error);
     }
   }
@@ -122,9 +120,7 @@ class _HomePageState extends State<HomePage> {
           padding: const EdgeInsets.symmetric(vertical: 3),
           child: Column(
             children: [
-              const SizedBox(
-                height: 12,
-              ),
+              const SizedBox(height: 12),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
@@ -138,12 +134,7 @@ class _HomePageState extends State<HomePage> {
                           fontWeight: FontWeight.w800),
                     ),
                     IconButton(
-                      onPressed: () {
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => const MyOrderView()));
-                      },
+                      onPressed: () {},
                       icon: Image.asset(
                         "assets/images/shopping-cart.png",
                         width: 25,
@@ -153,9 +144,7 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
+              const SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
@@ -163,12 +152,9 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Text(
                       "Giao hàng tới",
-                      style:
-                          TextStyle(color: Constants.textColor, fontSize: 11),
+                      style: TextStyle(color: Constants.textColor, fontSize: 11),
                     ),
-                    const SizedBox(
-                      height: 6,
-                    ),
+                    const SizedBox(height: 6),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -179,22 +165,18 @@ class _HomePageState extends State<HomePage> {
                               fontSize: 16,
                               fontWeight: FontWeight.w700),
                         ),
-                        const SizedBox(
-                          width: 25,
-                        ),
+                        const SizedBox(width: 25),
                         Image.asset(
                           "assets/images/dropdown.png",
                           width: 12,
                           height: 12,
-                        )
+                        ),
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
+              const SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: RoundTextfield(
@@ -203,17 +185,27 @@ class _HomePageState extends State<HomePage> {
                   left: Container(
                     alignment: Alignment.center,
                     width: 30,
-                    child: Image.asset(
-                      "assets/images/search.png",
-                      width: 20,
-                      height: 20,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SearchResultsPage(
+                              query: txtSearch.text,
+                            ),
+                          ),
+                        );
+                      },
+                      child: Image.asset(
+                        "assets/images/search.png",
+                        width: 20,
+                        height: 20,
+                      ),
                     ),
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 30,
-              ),
+              const SizedBox(height: 30),
               SizedBox(
                 height: 120,
                 child: ListView.builder(
@@ -290,7 +282,7 @@ class _HomePageState extends State<HomePage> {
                     onTap: () {},
                   );
                 }),
-              )
+              ),
             ],
           ),
         ),

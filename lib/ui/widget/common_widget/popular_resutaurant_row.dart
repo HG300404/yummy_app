@@ -34,7 +34,7 @@ class PopularRestaurantRow extends StatelessWidget {
                       pObj["restaurant_name"],
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          color: TColor.primaryText,
+                          color: Constants.primaryColor,
                           fontSize: 18,
                           fontWeight: FontWeight.w700),
                     ),
