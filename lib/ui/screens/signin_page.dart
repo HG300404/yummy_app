@@ -1,4 +1,3 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -48,7 +47,7 @@ class _SignInState extends State<SignIn> {
             children: [
               Image.asset('assets/images/signin.png'),
               const Text(
-              'Đăng Nhập',
+                'Đăng Nhập',
                 style: TextStyle(
                   fontSize: 35.0,
                   fontWeight: FontWeight.w700,
@@ -61,13 +60,13 @@ class _SignInState extends State<SignIn> {
                 obscureText: false,
                 hintText: 'Nhập Email',
                 icon: Icons.alternate_email,
-                 controller: _emailController,
+                controller: _emailController,
               ),
               CustomTextField(
                 obscureText: true,
                 hintText: 'Nhập mật khẩu',
                 icon: Icons.lock,
-                 controller: _passwordController,
+                controller: _passwordController,
               ),
               const SizedBox(
                 height: 10,
@@ -78,13 +77,11 @@ class _SignInState extends State<SignIn> {
                   color: Constants.primaryColor,
                   borderRadius: BorderRadius.circular(10),
                 ),
-                padding:
-                const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                child:
-                Center(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                child: Center(
                   child: InkWell(
                     onTap: _signIn,
-                    child:Text(
+                    child: Text(
                       "Đăng Nhập",
                       style: TextStyle(
                         color: Colors.white,
@@ -100,10 +97,12 @@ class _SignInState extends State<SignIn> {
               GestureDetector(
                 onTap: () {
                   Navigator.pushReplacement(
-                      context,
-                      PageTransition(
-                          child: const ForgotPassword(),
-                          type: PageTransitionType.bottomToTop));
+                    context,
+                    PageTransition(
+                      child: const ForgotPassword(),
+                      type: PageTransitionType.bottomToTop,
+                    ),
+                  );
                 },
                 child: Center(
                   child: Text.rich(
@@ -145,16 +144,16 @@ class _SignInState extends State<SignIn> {
                 decoration: BoxDecoration(
                     border: Border.all(color: Constants.primaryColor),
                     borderRadius: BorderRadius.circular(10)),
-                padding:
-                const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                 child: InkWell(
                   onTap: () async {
-                    // try {
-                    //   UserCredential userCredential = await signInWithGoogle();
-                    //   Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => RootPage()));
-                    // } catch (error) {
-                    //   print('Có lỗi khi đăng nhập với Google: $error');
-                    // }
+                    try {
+                      UserCredential userCredential = await signInWithGoogle();
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (context) => RootPage()));
+                    } catch (error) {
+                      print('Có lỗi khi đăng nhập với Google: $error');
+                    }
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -180,10 +179,12 @@ class _SignInState extends State<SignIn> {
               GestureDetector(
                 onTap: () {
                   Navigator.pushReplacement(
-                      context,
-                      PageTransition(
-                          child: const SignUp(),
-                          type: PageTransitionType.bottomToTop));
+                    context,
+                    PageTransition(
+                      child: const SignUp(),
+                      type: PageTransitionType.bottomToTop,
+                    ),
+                  );
                 },
                 child: Center(
                   child: Text.rich(
@@ -228,11 +229,20 @@ class _SignInState extends State<SignIn> {
     }
 
     try {
-      ApiResponse response = await UserController().signIn(email, password);
+      final response = await http.post(
+        Uri.parse('http://10.0.2.2:8000/api/login'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          'email': email,
+          'password': password,
+        }),
+      );
 
       if (response.statusCode == 200) {
         var jsonResponse = jsonDecode(response.body);
-        if (jsonResponse['status'] == 'success' ) {
+        if (jsonResponse['status'] == 'success') {
           saveUserId(jsonResponse['user']['id']);
 
           Navigator.push(
@@ -241,7 +251,6 @@ class _SignInState extends State<SignIn> {
               builder: (context) => RootPage(),
             ),
           );
-
         } else {
           _showSnackBar(jsonResponse['message'], Colors.red);
         }
@@ -249,11 +258,8 @@ class _SignInState extends State<SignIn> {
         _showSnackBar('Server error. Please try again later.', Colors.red);
       }
     } catch (error) {
-
       print("An error occurred: $error");  // Và thêm vào đây
-
     }
-
   }
 
   void _resetSignIn() {
@@ -273,23 +279,22 @@ class _SignInState extends State<SignIn> {
         duration: Duration(seconds: 3),
       ),
     );
-  }}
+  }
+}
 
-// Future<UserCredential> signInWithGoogle() async {
-//   // Trigger the authentication flow
-//   final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-//
-//   // Obtain the auth details from the request
-//   final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
-//
-//   // Create a new credential
-//   final credential = GoogleAuthProvider.credential(
-//     accessToken: googleAuth?.accessToken,
-//     idToken: googleAuth?.idToken,
-//   );
-//
-//   // Once signed in, return the UserCredential
-//   return await FirebaseAuth.instance.signInWithCredential(credential);
-// }
+Future<UserCredential> signInWithGoogle() async {
+  // Trigger the authentication flow
+  final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
+  // Obtain the auth details from the request
+  final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
 
+  // Create a new credential
+  final credential = GoogleAuthProvider.credential(
+    accessToken: googleAuth?.accessToken,
+    idToken: googleAuth?.idToken,
+  );
+
+  // Once signed in, return the UserCredential
+  return await FirebaseAuth.instance.signInWithCredential(credential);
+}

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:food_app/constants.dart';
 import 'package:food_app/db/dishController.dart';
 import 'package:food_app/db/restaurantController.dart';
+import 'package:food_app/ui/screens/my_order_view.dart';
 import 'package:food_app/ui/screens/searchPage.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -134,7 +135,12 @@ class _HomePageState extends State<HomePage> {
                           fontWeight: FontWeight.w800),
                     ),
                     IconButton(
-                      onPressed: () {},
+                       onPressed: () {
+                         // Navigator.push(
+                         // context,
+                         //     MaterialPageRoute(
+                         //  builder: (context) => const MyOrderView()));
+                 },
                       icon: Image.asset(
                         "assets/images/shopping-cart.png",
                         width: 25,

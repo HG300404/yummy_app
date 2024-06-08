@@ -71,14 +71,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ],
           ),
           Positioned(
-            bottom: 80,
+            bottom: 50,
             left: 30,
             child: Row(
               children: _buildIndicator(),
             ),
           ),
           Positioned(
-            bottom: 60,
+            bottom: 40,
             right: 30,
             child: Container(
               child: IconButton(
@@ -162,7 +162,7 @@ class createPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        padding: const EdgeInsets.only(left: 50, right: 50, bottom: 80),
+        padding: const EdgeInsets.only(left: 50, right: 50, bottom: 40),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -170,7 +170,7 @@ class createPage extends StatelessWidget {
               height: 350,
               child: Image.asset(image),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             Text(
               title,
               textAlign: TextAlign.center,
