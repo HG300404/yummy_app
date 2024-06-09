@@ -306,8 +306,14 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
                       bytes = null;
                     }
                   } else {
-                    print('Dữ liệu hình ảnh bị hỏng: độ dài không phải là bội số của 4.');
-                    bytes = null;
+                    // Sửa lỗi: Dữ liệu hình ảnh bị hỏng: độ dài không phải là bội số của 4.
+                    base64Image += '=' * ((base64Image.length % 4 - 4) % 4);
+                    try {
+                      bytes = base64Decode(base64Image);
+                    } on FormatException {
+                      print('Không thể giải mã hình ảnh: dữ liệu base64 không hợp lệ.');
+                      bytes = null;
+                    }
                   }
                 } else {
                   bytes = null;
@@ -435,65 +441,65 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
         ],
       ),
       child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-          InkWell(
-          onTap: () {
-    showModalBottomSheet(
-    context: context,
-    builder: (context) {
-    return buildCartPopup(context);
-    },
-    isScrollControlled: true,
-    );
-    },
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Image(image: AssetImage("assets/images/cart.png")),
-          Text(
-            "(${getAmount()})",
-            style: TextStyle(
-              color: Constants.primaryColor,
-              fontSize: 20,
+          InkWell(
+            onTap: () {
+              showModalBottomSheet(
+                context: context,
+                builder: (context) {
+                  return buildCartPopup(context);
+                },
+                isScrollControlled: true,
+              );
+            },
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image(image: AssetImage("assets/images/cart.png")),
+                Text(
+                  "(${getAmount()})",
+                  style: TextStyle(
+                    color: Constants.primaryColor,
+                    fontSize: 20,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
             ),
-            textAlign: TextAlign.center,
+          ),
+          Text(
+            "${getTotalAmount()}.000đ",
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w700,
+              color: Constants.primaryColor,
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MyOrderView(resID: widget.resID)),
+              );
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+              decoration: BoxDecoration(
+                color: Constants.primaryColor,
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Text(
+                "Đặt hàng",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
           ),
         ],
-      ),
-    ),
-    Text(
-    "${getTotalAmount()}.000đ",
-    style: TextStyle(
-    fontSize: 20,
-    fontWeight: FontWeight.w700,
-    color: Constants.primaryColor,
-    ),
-    ),
-    InkWell(
-    onTap: () {
-    Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => MyOrderView(resID: widget.resID)),
-    );
-    },
-    child: Container(
-    padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-    decoration: BoxDecoration(
-    color: Constants.primaryColor,
-    borderRadius: BorderRadius.circular(30),
-    ),
-    child: Text(
-    "Đặt hàng",
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 18,
-        fontWeight: FontWeight.w500,
-      ),
-    ),
-    ),
-    ),
-          ],
       ),
     );
   }
@@ -708,4 +714,3 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
     return amount;
   }
 }
-
