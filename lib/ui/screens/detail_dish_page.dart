@@ -95,7 +95,7 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
 
   Future<void> _search1() async {
     try {
-      ApiResponse response = await DishController().search("Món chính");
+      ApiResponse response = await DishController().search("Món chính", widget.resID);
       if (response.statusCode == 200) {
         setState(() {
           list1 = jsonDecode(response.body);
@@ -111,7 +111,7 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
 
   Future<void> _search2() async {
     try {
-      ApiResponse response = await DishController().search("Món thêm");
+      ApiResponse response = await DishController().search("Món thêm", widget.resID);
       if (response.statusCode == 200) {
         setState(() {
           list2 = jsonDecode(response.body);
@@ -128,7 +128,7 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
 
   Future<void> _search3() async {
     try {
-      ApiResponse response = await DishController().search("Đồ uống");
+      ApiResponse response = await DishController().search("Đồ uống", widget.resID);
       if (response.statusCode == 200) {
         setState(() {
           list3 = jsonDecode(response.body);

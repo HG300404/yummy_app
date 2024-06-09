@@ -5,7 +5,7 @@ import 'dart:convert';
 class RestaurantController {
   //getAll
   Future<ApiResponse> getTop() async {
-    var url = Uri.parse('http://10.0.2.2:8000/api/order/getTopRestaurant');
+    var url = Uri.parse('http://10.0.2.2:8000/api/restaurant/getAllHome');
     var response = await http.get(
       url,
       headers: <String, String>{

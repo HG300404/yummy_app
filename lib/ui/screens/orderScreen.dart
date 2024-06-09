@@ -152,16 +152,19 @@ class DangDenTab extends StatelessWidget {
       final user_id = snapshot.data ?? 0;
       return StreamBuilder<List<FirebaseModel>>(
         stream: _controller.getAll(user_id.toInt()),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) {
+        builder: (context, snapshot1) {
+          if (!snapshot1.hasData) {
             return Center(child: CircularProgressIndicator());
           } else {
-            final orders = snapshot.data;
+            final orders = snapshot1.data;
+            final models = snapshot1.data;
+            final modelString = _controller.firebaseModelListToString(models!);
+            print(modelString);
             return ListView.builder(
               itemCount: orders?.length,
               itemBuilder: (context, index) {
                 final order = orders?[index];
-
+                print("order_id: ${order?.status}");
                 Future<Restaurants> _getItem(int resId) async {
                   Restaurants res = Restaurants(
                     id: 0,
@@ -202,7 +205,8 @@ class DangDenTab extends StatelessWidget {
                         color: Constants.backgroundTable,
                         child: Padding(
                           padding: EdgeInsets.all(10),
-                          child: Column(
+                          child:
+                          Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text('Đồ ăn ${order.order_id}',

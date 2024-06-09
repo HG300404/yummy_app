@@ -87,7 +87,7 @@ class MostPopularCell extends StatelessWidget {
                   width: 4,
                 ),
                 Text(
-                  "${mObj["rate"]}",
+                  "${mObj["rate"].toString()}",
                   textAlign: TextAlign.center,
                   style: TextStyle(color: Constants.primaryColor, fontSize: 12),
                 ),
@@ -97,7 +97,7 @@ class MostPopularCell extends StatelessWidget {
                   style: TextStyle(color: Constants.primaryColor, fontSize: 12),
                 ),
                 Text(
-                  "${mObj["price"]}đ",
+                  "${mObj["price"]}.000đ",
                   textAlign: TextAlign.center,
                   style: TextStyle(color: Constants.primaryColor, fontSize: 12),
                 ),

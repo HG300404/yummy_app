@@ -9,8 +9,10 @@ import 'package:food_app/ui/widget/common_widget/round_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../db/cartController.dart';
+import '../../db/firebaseController.dart';
 import '../../db/restaurantController.dart';
 import '../../db/userController.dart';
+import '../../model/firebaseModel.dart';
 import '../../model/restaurants.dart';
 import '../../model/users.dart';
 import 'checkout_message_view.dart';
@@ -26,6 +28,9 @@ class CheckoutView extends StatefulWidget {
 }
 
 class _CheckoutViewState extends State<CheckoutView> {
+
+  final FirebaseController _controller = FirebaseController();
+
   List paymentArr = [
     {"name": "Thanh toán khi nhận hàng", "icon": "assets/images/cash-icon.png"},
     {"name": "**** **** **** 2187", "icon": "assets/images/visa_icon.png"},
@@ -164,16 +169,59 @@ class _CheckoutViewState extends State<CheckoutView> {
     }
   }
 
+  Future<void> saveDataToFirebase(
+      int user_id,
+      Users item,
+      Map<int, Map<dynamic, dynamic>> cart,
+      Orders order,
+      String note,
+      int res_id,
+      ) async {
+    final Customer customer = Customer(
+      name: item.name,
+      address: item.address!,
+      cus_id: item.id,
+    );
+    List<Dish> dishes = [];
+    cart.forEach((key, value) {
+      dynamic dishName = value['dish_name'];
+      dynamic dishPrice = value['dish_price'];
+      dynamic dishQuantity = value['quantity'];
+      Dish dish = Dish(name: dishName, price: dishPrice, quantity: dishQuantity, options: note);
+      dishes.add(dish);
+    });
+    // final Customer customer;
+    // final String status;
+    // final int total;
+    // final int order_id;
+    // final int res_id;
+    // final List<Dish> dishes;
+
+    // Tạo đối tượng FirebaseModel
+    final FirebaseModel data = FirebaseModel(
+      customer: customer,
+      status: 'Chưa xử lý',
+      total: order.total_amount,
+      order_id: order.id,
+      res_id: res_id, // Thay đổi giá trị res_id tùy theo logic của bạn
+      dishes: dishes,
+    );
+
+    // Gọi hàm saveDataToFirebase để lưu dữ liệu
+    FirebaseController().saveDataToFirebase(data);
+  }
   Future<bool> handleOrderCreation() async {
     try {
       await createOrder();
       await createOrderItem();
+      await saveDataToFirebase(user_id, item, cart, order, widget.note, widget.resID);
       return true;
     } catch (error) {
       print(error);
       return false;
     }
   }
+
 
   num getTotalAmount() {
     num total = 0;

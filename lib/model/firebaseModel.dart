@@ -37,6 +37,11 @@ class FirebaseModel {
                 (item) => Dish.fromMap(item as Map<String, dynamic>),
           ),
         );
+
+  @override
+  String toString() {
+    return 'FirebaseModel(order_id: $order_id, customer: $customer, status: $status, total: $total, res_id: $res_id, dishes: $dishes)';
+  }
 }
 
 class Customer {

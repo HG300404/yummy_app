@@ -5,7 +5,7 @@ import 'dart:convert';
 class DishController {
   //getAll
   Future<ApiResponse> getTop() async {
-    var url = Uri.parse('http://10.0.2.2:8000/api/dish/getAll');
+    var url = Uri.parse('http://10.0.2.2:8000/api/dish/getAllHome');
     var response = await http.get(
       url,
       headers: <String, String>{
@@ -31,8 +31,8 @@ class DishController {
   }
 
   //get list by type
-  Future<ApiResponse> search(String type) async {
-    var url = Uri.parse('http://10.0.2.2:8000/api/dish/search/${type}');
+  Future<ApiResponse> search(String type, int res_id) async {
+    var url = Uri.parse('http://10.0.2.2:8000/api/dish/search/${type}/${res_id}');
     var response = await http.get(
       url,
       headers: <String, String>{

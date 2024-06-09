@@ -31,7 +31,7 @@ class PopularRestaurantRow extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      pObj["restaurant_name"],
+                      pObj["name"],
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Constants.primaryColor,
@@ -58,7 +58,7 @@ class PopularRestaurantRow extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      pObj["open"],
+                      pObj["opening_hours"],
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: TColor.secondaryText, fontSize: 11),
