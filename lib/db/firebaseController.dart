@@ -13,9 +13,33 @@ class FirebaseController {
     firebaseModelRef = _firestore.collection('wait');
   }
 
-  Stream<List<FirebaseModel>> getAll(int customerId) {
+  Stream<List<FirebaseModel>> getAll(int customerId, String status) {
     print("customerId: $customerId");
     return firebaseModelRef.where('customer.cus_id', isEqualTo: customerId).snapshots()
+        .map((snapshot) => snapshot.docs)
+        .map((docs) {
+      try {
+        final firebaseModels = docs.map((doc) => FirebaseModel.fromMap(doc.data() as Map<String, dynamic>)).toList();
+
+        // lọc ra những dữ liệu có status khác với status truyền vào
+        firebaseModels.removeWhere((firebaseModel) => firebaseModel.status == status);
+
+        if (firebaseModels.isEmpty) {
+          return [];
+        } else {
+          return firebaseModels;
+        }
+      } catch (e) {
+        print('Error converting FirebaseModel: $e');
+        return [];
+      }
+    });
+  }
+
+  Stream<List<FirebaseModel>> getOrdered(int customerId, String status) {
+    print("customerId: $customerId");
+    return firebaseModelRef.where('customer.cus_id', isEqualTo: customerId)
+        .where('status', isEqualTo: status).snapshots()
         .map((snapshot) => snapshot.docs)
         .map((docs) {
       try {

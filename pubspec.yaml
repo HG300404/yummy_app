@@ -56,6 +56,8 @@ dependencies:
   google_sign_in: ^6.2.1
   shared_preferences: ^2.2.3
   flutter_screenutil: ^5.0.0
+  flutter_paypal_checkout: ^1.0.1
+
 
 
 dev_dependencies:

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/ui/screens/home_page.dart';
+import 'package:food_app/ui/screens/root_page.dart';
 import 'package:food_app/ui/widget/common_widget/round_button.dart';
 
 import '../../constants.dart';
@@ -33,7 +34,12 @@ class _CheckoutMessageViewState extends State<CheckoutMessageView> {
             children: [
               IconButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => RootPage(),
+                    ),
+                  );
                 },
                 icon: Icon(
                   Icons.close,

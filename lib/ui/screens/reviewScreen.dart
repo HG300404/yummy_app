@@ -1,38 +1,25 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:food_app/constants.dart';
+import 'package:food_app/ui/screens/orderScreen.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../db/reviewController.dart';
+import '../../db/userController.dart';
+
 class ReviewScreen extends StatefulWidget {
+  final int resID,userID,orderID;
+  const ReviewScreen({super.key, required this.resID, required this.userID, required this.orderID});
+
   @override
   _ReviewScreenState createState() => _ReviewScreenState();
 }
 
 class _ReviewScreenState extends State<ReviewScreen> {
   int _selectedStars = 0;
-  List<XFile> _images = [];
-  List<XFile> _videos = [];
-
-  final ImagePicker _picker = ImagePicker();
-
-  void _pickImage() async {
-    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      setState(() {
-        _images.add(pickedFile);
-      });
-    }
-  }
-
-  void _pickVideo() async {
-    final pickedFile = await _picker.pickVideo(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      setState(() {
-        _videos.add(pickedFile);
-      });
-    }
-  }
+  final commentController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +29,25 @@ class _ReviewScreenState extends State<ReviewScreen> {
         backgroundColor: Constants.primaryColor,
         actions: [
           TextButton(
-            onPressed: () {
-              // Hành động khi bấm nút "Gửi"
+            onPressed: () async {
+              print('Số sao: $_selectedStars');
+              print('Bình luận: ${commentController.text}');
+              try {
+                //String user_id, String restaurant_id, String rating, String order_id, String comment
+                ApiResponse response = await ReviewController().create(widget.userID.toString(), widget.resID.toString(), _selectedStars.toString(), widget.orderID.toString(), commentController.text );
+                if (response.statusCode == 200) {
+                    var jsonResponse = jsonDecode(response.body);
+                    if (jsonResponse['status'] == 'success') {
+                      print(jsonResponse['status']);
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => OrderScreen()),
+                      );
+                    }
+                }
+              } catch (error) {
+                // Xử lý lỗi (nếu có)
+                print(error);
+              }
             },
             child: Text(
               'Gửi',
@@ -56,12 +60,6 @@ class _ReviewScreenState extends State<ReviewScreen> {
         padding: const EdgeInsets.all(16.0),
         child: ListView(
           children: [
-            ListTile(
-              leading: Image.asset('assets/images/item_1.png', height: 80),
-              title: Text('Bánh tráng phơi sương', style: TextStyle(fontSize: 18)),
-              subtitle: Text('Phân loại: Sốt tắc', style: TextStyle(fontSize: 16, color: Constants.lightTextColor)),
-            ),
-            Divider(),
             ListTile(
               title: Text('Chất lượng sản phẩm', style: TextStyle(fontSize: 16)),
               subtitle: Row(
@@ -83,57 +81,14 @@ class _ReviewScreenState extends State<ReviewScreen> {
             ),
             SizedBox(height: 10),
             Text(
-              'Thêm 50 ký tự và 1 hình ảnh và 1 video để nhận đến 200 xu',
+              'Thêm 50 ký tự để nhận đến 1000 xu',
               style: TextStyle(fontSize: 15, color: Colors.orange),
             ),
-            SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton.icon(
-                  onPressed: _pickImage,
-                  icon: Icon(Icons.camera_alt, color: Colors.pinkAccent),
-                  label: Text('Thêm Hình ảnh', style: TextStyle(color: Colors.pinkAccent)),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    side: BorderSide(color: Colors.pinkAccent),
-                  ),
-                ),
-                ElevatedButton.icon(
-                  onPressed: _pickVideo,
-                  icon: Icon(Icons.videocam, color: Colors.pinkAccent),
-                  label: Text('Thêm Video', style: TextStyle(color: Colors.pinkAccent)),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    side: BorderSide(color: Colors.pinkAccent),
-                  ),
-                ),
-              ],
-            ),
             SizedBox(height: 20),
-            if (_images.isNotEmpty)
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: _images.map((image) {
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
-                    child: Image.file(File(image.path), height: 100),
-                  );
-                }).toList(),
-              ),
-            if (_videos.isNotEmpty)
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: _videos.map((video) {
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
-                    child: Text(video.name), // Hiển thị tên video
-                  );
-                }).toList(),
-              ),
             TextField(
+              controller: commentController,
               decoration: InputDecoration(
-                hintText: 'Hãy chia sẻ nhận xét cho sản phẩm này bạn nhé!',
+                hintText: 'Hãy chia sẻ nhận xét cho quán ăn này bạn nhé!',
                 border: OutlineInputBorder(),
               ),
               maxLines: 5,

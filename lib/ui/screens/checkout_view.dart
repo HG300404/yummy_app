@@ -1,10 +1,13 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_paypal_checkout/flutter_paypal_checkout.dart';
 import 'package:food_app/constants.dart';
 import 'package:food_app/db/orderController.dart';
 import 'package:food_app/model/orders.dart';
+import 'package:food_app/ui/screens/CheckoutPage.dart';
 import 'package:food_app/ui/screens/change_info_view.dart';
+import 'package:food_app/ui/screens/root_page.dart';
 import 'package:food_app/ui/widget/common_widget/round_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -17,18 +20,16 @@ import '../../model/restaurants.dart';
 import '../../model/users.dart';
 import 'checkout_message_view.dart';
 
-
 class CheckoutView extends StatefulWidget {
   final int resID;
   final String note;
-  const CheckoutView({super.key, required this.resID,  required this.note});
+  const CheckoutView({super.key, required this.resID, required this.note});
 
   @override
   State<CheckoutView> createState() => _CheckoutViewState();
 }
 
 class _CheckoutViewState extends State<CheckoutView> {
-
   final FirebaseController _controller = FirebaseController();
 
   List paymentArr = [
@@ -38,6 +39,7 @@ class _CheckoutViewState extends State<CheckoutView> {
   ];
 
   int selectMethod = -1;
+  int done = 0;
 
   @override
   void initState() {
@@ -47,12 +49,14 @@ class _CheckoutViewState extends State<CheckoutView> {
       _getItem();
     });
   }
+
   var user_id = 0;
   // Lấy user_id
   Future<void> _getUserId() async {
     final prefs = await SharedPreferences.getInstance();
     user_id = prefs.getInt('user_id')!;
   }
+
   void _showSnackBar(String message, Color backgroundColor) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -66,6 +70,7 @@ class _CheckoutViewState extends State<CheckoutView> {
       ),
     );
   }
+
   Users item = Users(
     id: 0,
     name: '',
@@ -97,11 +102,13 @@ class _CheckoutViewState extends State<CheckoutView> {
       print(error);
     }
   }
+
   List<dynamic> list = [];
   Map<int, Map<dynamic, dynamic>> cart = {};
   Future<void> _getCart() async {
     try {
-      ApiResponse response = await CartController().getAll(user_id, widget.resID);
+      ApiResponse response =
+          await CartController().getAll(user_id, widget.resID);
       if (response.statusCode == 200) {
         setState(() {
           list = jsonDecode(response.body);
@@ -123,7 +130,6 @@ class _CheckoutViewState extends State<CheckoutView> {
     }
   }
 
-
   Orders order = Orders(
     id: 0,
     user_id: 0,
@@ -138,7 +144,14 @@ class _CheckoutViewState extends State<CheckoutView> {
   );
   Future<void> createOrder() async {
     try {
-      ApiResponse response = await OrderController().createOrder(user_id, widget.resID, getTotalAmount().toInt(), 5 , item.coin, getTotal().toInt(), selectMethod);
+      ApiResponse response = await OrderController().createOrder(
+          user_id,
+          widget.resID,
+          getTotalAmount().toInt(),
+          5,
+          item.coin,
+          getTotal().toInt(),
+          selectMethod);
       if (response.statusCode == 200) {
         setState(() {
           Map<String, dynamic> data = jsonDecode(response.body);
@@ -152,9 +165,14 @@ class _CheckoutViewState extends State<CheckoutView> {
       print(error);
     }
   }
+
   Future<void> createOrderItem() async {
     try {
-      ApiResponse response = await OrderController().createOrderItem(order.id.toString(), user_id.toString(), widget.resID.toString(), widget.note);
+      ApiResponse response = await OrderController().createOrderItem(
+          order.id.toString(),
+          user_id.toString(),
+          widget.resID.toString(),
+          widget.note);
       if (response.statusCode == 200) {
         // setState(() {
         //   list = jsonDecode(response.body);
@@ -170,13 +188,14 @@ class _CheckoutViewState extends State<CheckoutView> {
   }
 
   Future<void> saveDataToFirebase(
-      int user_id,
-      Users item,
-      Map<int, Map<dynamic, dynamic>> cart,
-      Orders order,
-      String note,
-      int res_id,
-      ) async {
+    int user_id,
+    Users item,
+    Map<int, Map<dynamic, dynamic>> cart,
+    Orders order,
+    String note,
+    int res_id,
+    int method,
+  ) async {
     final Customer customer = Customer(
       name: item.name,
       address: item.address!,
@@ -187,34 +206,34 @@ class _CheckoutViewState extends State<CheckoutView> {
       dynamic dishName = value['dish_name'];
       dynamic dishPrice = value['dish_price'];
       dynamic dishQuantity = value['quantity'];
-      Dish dish = Dish(name: dishName, price: dishPrice, quantity: dishQuantity, options: note);
+      Dish dish = Dish(
+          name: dishName,
+          price: dishPrice,
+          quantity: dishQuantity,
+          options: note);
       dishes.add(dish);
     });
-    // final Customer customer;
-    // final String status;
-    // final int total;
-    // final int order_id;
-    // final int res_id;
-    // final List<Dish> dishes;
-
     // Tạo đối tượng FirebaseModel
     final FirebaseModel data = FirebaseModel(
       customer: customer,
       status: 'Chưa xử lý',
       total: order.total_amount,
       order_id: order.id,
-      res_id: res_id, // Thay đổi giá trị res_id tùy theo logic của bạn
+      res_id: res_id,
+      method: method,
       dishes: dishes,
     );
 
     // Gọi hàm saveDataToFirebase để lưu dữ liệu
     FirebaseController().saveDataToFirebase(data);
   }
+
   Future<bool> handleOrderCreation() async {
     try {
       await createOrder();
       await createOrderItem();
-      await saveDataToFirebase(user_id, item, cart, order, widget.note, widget.resID);
+      await saveDataToFirebase(
+          user_id, item, cart, order, widget.note, widget.resID, selectMethod);
       return true;
     } catch (error) {
       print(error);
@@ -222,10 +241,9 @@ class _CheckoutViewState extends State<CheckoutView> {
     }
   }
 
-
   num getTotalAmount() {
     num total = 0;
-    for (var item in cart.values){
+    for (var item in cart.values) {
       total += item['dish_price'] * item['quantity'];
     }
     return total;
@@ -235,6 +253,7 @@ class _CheckoutViewState extends State<CheckoutView> {
     num total = getTotalAmount() + 5 - item.coin;
     return total;
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -276,15 +295,15 @@ class _CheckoutViewState extends State<CheckoutView> {
               ),
               Padding(
                 padding:
-                const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       "Địa chỉ giao hàng",
                       textAlign: TextAlign.center,
-                      style:
-                      TextStyle(color: Constants.highlightColor, fontSize: 12),
+                      style: TextStyle(
+                          color: Constants.highlightColor, fontSize: 12),
                     ),
                     const SizedBox(
                       height: 8,
@@ -309,8 +328,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                             final result = await Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                  const ChangeInfoView()),
+                                  builder: (context) => const ChangeInfoView()),
                             );
                             // if (result != null) {
                             //   setState(() {
@@ -385,8 +403,8 @@ class _CheckoutViewState extends State<CheckoutView> {
                                 color: Constants.textfield,
                                 borderRadius: BorderRadius.circular(5),
                                 border: Border.all(
-                                    color:
-                                    Constants.highlightColor.withOpacity(0.2))),
+                                    color: Constants.highlightColor
+                                        .withOpacity(0.2))),
                             child: Row(
                               children: [
                                 Image.asset(pObj["icon"].toString(),
@@ -546,23 +564,90 @@ class _CheckoutViewState extends State<CheckoutView> {
               ),
               Padding(
                 padding:
-                const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
                 child: RoundButton(
                     title: "Đặt hàng",
                     onPressed: () {
-                      handleOrderCreation().then((success) {
-                        if (success) {
-                          showModalBottomSheet(
-                              context: context,
-                              backgroundColor: Colors.pinkAccent,
-                              isScrollControlled: true,
-                              builder: (context) {
-                                return const CheckoutMessageView();
+                      int total = getTotal().toInt();
+                      int price = total - 5;
+                      if (selectMethod == 1 && done == 0) {
+                        List<Map<String, dynamic>> itemsList =
+                            cart.entries.map((entry) {
+                          return {
+                            "name": entry.value['dish_name'],
+                            "quantity": entry.value['quantity'],
+                            "price": entry.value['dish_price']
+                                .toString(), // giả sử dish_price là số, chuyển đổi sang chuỗi
+                            "currency": "USD"
+                          };
+                        }).toList();
+
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (BuildContext context) => PaypalCheckout(
+                            sandboxMode: true,
+                            clientId:
+                                "ARKK4HlvBI37lJKNuW_zQQuR7psUZFPj9rZE-j6kI8cF2ucDXksfubNWvgwpk-t5GPWKcW8E-KGlcb2R",
+                            secretKey:
+                                "EBVcDrIz_VQdsQEh1A_Y5dh2IeTisx03Ayof76LX4VPpJPPKuVqaWucDLIID_zL63BzIUm0tDjYI7Bus",
+                            returnURL: "success.snippetcoder.com",
+                            cancelURL: "cancel.snippetcoder.com",
+                            transactions: [
+                              {
+                                "amount": {
+                                  "total": total,
+                                  "currency": "USD",
+                                  "details": {
+                                    "subtotal": price,
+                                    "shipping": "5",
+                                  }
+                                },
+                                "item_list": {
+                                  "items": itemsList,
+                                }
+                              }
+                            ],
+                            note:
+                                "Liên hệ với chúng tôi nếu bạn có câu hỏi gì.",
+                            onSuccess: (Map params) async {
+                              done = 1;
+                              print("onSuccess: $params");
+                              handleOrderCreation().then((success) {
+                                if (success) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => RootPage(),
+                                    ),
+                                  );
+                                } else {
+                                  print('Order creation failed');
+                                }
                               });
-                        } else {
-                          print('Order creation failed');
-                        }
-                      });
+                            },
+                            onError: (error) {
+                              print("onError: $error");
+                              Navigator.pop(context);
+                            },
+                            onCancel: () {
+                              print('cancelled:');
+                            },
+                          ),
+                        ));
+
+                      } else {
+                        handleOrderCreation().then((success) {
+                          if (success) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => RootPage(),
+                              ),
+                            );
+                          } else {
+                            print('Order creation failed');
+                          }
+                        });
+                      }
                     }),
               ),
             ],

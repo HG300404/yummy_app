@@ -23,8 +23,8 @@ class DetailDish extends StatefulWidget {
   State<DetailDish> createState() => _DetailDishState();
 }
 
-class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateMixin {
-
+class _DetailDishState extends State<DetailDish>
+    with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
@@ -92,10 +92,10 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
   List<dynamic> list = [];
   Map<int, Map<dynamic, dynamic>> cart = {};
 
-
   Future<void> _search1() async {
     try {
-      ApiResponse response = await DishController().search("Món chính", widget.resID);
+      ApiResponse response =
+          await DishController().search("Món chính", widget.resID);
       if (response.statusCode == 200) {
         setState(() {
           list1 = jsonDecode(response.body);
@@ -111,7 +111,8 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
 
   Future<void> _search2() async {
     try {
-      ApiResponse response = await DishController().search("Món thêm", widget.resID);
+      ApiResponse response =
+          await DishController().search("Món thêm", widget.resID);
       if (response.statusCode == 200) {
         setState(() {
           list2 = jsonDecode(response.body);
@@ -128,7 +129,8 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
 
   Future<void> _search3() async {
     try {
-      ApiResponse response = await DishController().search("Đồ uống", widget.resID);
+      ApiResponse response =
+          await DishController().search("Đồ uống", widget.resID);
       if (response.statusCode == 200) {
         setState(() {
           list3 = jsonDecode(response.body);
@@ -144,7 +146,8 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
 
   Future<void> _getCart() async {
     try {
-      ApiResponse response = await CartController().getAll(user_id, widget.resID);
+      ApiResponse response =
+          await CartController().getAll(user_id, widget.resID);
       if (response.statusCode == 200) {
         setState(() {
           list = jsonDecode(response.body);
@@ -216,13 +219,15 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
                             SizedBox(width: 5),
                             Text(
                               "${item.total_rate}",
-                              style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  fontSize: 17, fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),
                         Text(
                           "${item.name}",
-                          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.bold),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                         ),
@@ -302,11 +307,13 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
                     try {
                       bytes = base64Decode(base64Image);
                     } on FormatException {
-                      print('Không thể giải mã hình ảnh: dữ liệu base64 không hợp lệ.');
+                      print(
+                          'Không thể giải mã hình ảnh: dữ liệu base64 không hợp lệ.');
                       bytes = null;
                     }
                   } else {
-                    print('Dữ liệu hình ảnh bị hỏng: độ dài không phải là bội số của 4.');
+                    print(
+                        'Dữ liệu hình ảnh bị hỏng: độ dài không phải là bội số của 4.');
                     bytes = null;
                   }
                 } else {
@@ -318,26 +325,27 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
                   children: [
                     bytes != null
                         ? Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Image.memory(
-                        bytes,
-                        width: 60,
-                        height: 60,
-                        fit: BoxFit.cover,
-                        errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                          return const Icon(Icons.error);
-                        },
-                      ),
-                    )
+                            padding: EdgeInsets.all(10),
+                            child: Image.memory(
+                              bytes,
+                              width: 60,
+                              height: 60,
+                              fit: BoxFit.cover,
+                              errorBuilder: (BuildContext context,
+                                  Object exception, StackTrace? stackTrace) {
+                                return const Icon(Icons.error);
+                              },
+                            ),
+                          )
                         : Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Image.asset(
-                        "assets/images/image.png",
-                        width: 60,
-                        height: 60,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                            padding: EdgeInsets.all(10),
+                            child: Image.asset(
+                              "assets/images/image.png",
+                              width: 60,
+                              height: 60,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                     Container(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -373,15 +381,18 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       child: Row(
                         children: [
-                          buildQuantityButton(CupertinoIcons.minus, () => onDecrement(pObj.id)),
+                          buildQuantityButton(
+                              CupertinoIcons.minus, () => onDecrement(pObj.id)),
                           Container(
                             margin: EdgeInsets.symmetric(horizontal: 10),
                             child: Text(
                               "${cart[pObj.id]?['quantity'] ?? 0}",
-                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
                             ),
                           ),
-                          buildQuantityButton(CupertinoIcons.add, () => onIncrement(pObj.id)),
+                          buildQuantityButton(
+                              CupertinoIcons.add, () => onIncrement(pObj.id)),
                         ],
                       ),
                     ),
@@ -435,65 +446,66 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
         ],
       ),
       child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-          InkWell(
-          onTap: () {
-    showModalBottomSheet(
-    context: context,
-    builder: (context) {
-    return buildCartPopup(context);
-    },
-    isScrollControlled: true,
-    );
-    },
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Image(image: AssetImage("assets/images/cart.png")),
-          Text(
-            "(${getAmount()})",
-            style: TextStyle(
-              color: Constants.primaryColor,
-              fontSize: 20,
+          InkWell(
+            onTap: () {
+              showModalBottomSheet(
+                context: context,
+                builder: (context) {
+                  return buildCartPopup(context);
+                },
+                isScrollControlled: true,
+              );
+            },
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image(image: AssetImage("assets/images/cart.png")),
+                Text(
+                  "(${getAmount()})",
+                  style: TextStyle(
+                    color: Constants.primaryColor,
+                    fontSize: 20,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
             ),
-            textAlign: TextAlign.center,
+          ),
+          Text(
+            "${getTotalAmount()}.000đ",
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w700,
+              color: Constants.primaryColor,
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => MyOrderView(resID: widget.resID)),
+              );
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+              decoration: BoxDecoration(
+                color: Constants.primaryColor,
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Text(
+                "Đặt hàng",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
           ),
         ],
-      ),
-    ),
-    Text(
-    "${getTotalAmount()}.000đ",
-    style: TextStyle(
-    fontSize: 20,
-    fontWeight: FontWeight.w700,
-    color: Constants.primaryColor,
-    ),
-    ),
-    InkWell(
-    onTap: () {
-    Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => MyOrderView(resID: widget.resID)),
-    );
-    },
-    child: Container(
-    padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-    decoration: BoxDecoration(
-    color: Constants.primaryColor,
-    borderRadius: BorderRadius.circular(30),
-    ),
-    child: Text(
-    "Đặt hàng",
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 18,
-        fontWeight: FontWeight.w500,
-      ),
-    ),
-    ),
-    ),
-          ],
       ),
     );
   }
@@ -549,11 +561,13 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
                       return ListTile(
                         leading: item?['dish_img'] != null
                             ? Image.memory(
-                          base64Decode(item?['dish_img'].substring('data:image/jpeg;base64,'.length)),
-                          width: 50,
-                          height: 50,
-                          errorBuilder: (context, error, stackTrace) => Icon(Icons.error),
-                        )
+                                base64Decode(item?['dish_img'].substring(
+                                    'data:image/jpeg;base64,'.length)),
+                                width: 50,
+                                height: 50,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    Icon(Icons.error),
+                              )
                             : Icon(Icons.image_not_supported),
                         title: Text(item?['dish_name']),
                         subtitle: Text("${item?['dish_price']}.000đ"),
@@ -569,7 +583,8 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
                               margin: EdgeInsets.symmetric(horizontal: 10),
                               child: Text(
                                 "${item?['quantity']}",
-                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
                               ),
                             ),
                             buildQuantityButton(CupertinoIcons.add, () {
@@ -631,7 +646,8 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
     if (cart[id] != null && cart[id]?['quantity'] > 1) {
       cart[id]?['quantity']--;
       try {
-        ApiResponse response = await CartController().update(user_id, id, widget.resID, cart[id]?['quantity']);
+        ApiResponse response = await CartController()
+            .update(user_id, id, widget.resID, cart[id]?['quantity']);
         if (response.statusCode == 200) {
           setState(() {
             // Update state here
@@ -645,7 +661,8 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
     } else if (cart[id]?['quantity'] == 1) {
       cart.remove(id);
       try {
-        ApiResponse response = await CartController().delete(user_id, id, widget.resID);
+        ApiResponse response =
+            await CartController().delete(user_id, id, widget.resID);
         if (response.statusCode == 200) {
           setState(() {
             // Update state here
@@ -663,7 +680,8 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
     if (cart[id] != null) {
       cart[id]?['quantity']++;
       try {
-        ApiResponse response = await CartController().update(user_id, id, widget.resID, cart[id]?['quantity']);
+        ApiResponse response = await CartController()
+            .update(user_id, id, widget.resID, cart[id]?['quantity']);
         if (response.statusCode == 200) {
           setState(() {
             // Update state here
@@ -676,7 +694,8 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
       }
     } else {
       try {
-        ApiResponse response = await CartController().addCart(user_id, widget.resID, id, 1);
+        ApiResponse response =
+            await CartController().addCart(user_id, widget.resID, id, 1);
         if (response.statusCode == 200) {
           setState(() {
             // Update state here
@@ -708,4 +727,3 @@ class _DetailDishState extends State<DetailDish> with SingleTickerProviderStateM
     return amount;
   }
 }
-

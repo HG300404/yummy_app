@@ -4,6 +4,7 @@ class FirebaseModel {
   final int total;
   final int order_id;
   final int res_id;
+  final int method;
   final List<Dish> dishes;
 
   const FirebaseModel({
@@ -12,6 +13,7 @@ class FirebaseModel {
     required this.total,
     required this.order_id,
     required this.res_id,
+    required this.method,
     required this.dishes,
   });
 
@@ -22,6 +24,7 @@ class FirebaseModel {
       'total': total,
       'order_id': order_id,
       'res_id': res_id,
+      'method': method,
       'dishes': dishes.map((item) => item.toMap()).toList(),
     };
   }
@@ -32,6 +35,7 @@ class FirebaseModel {
         total = map['total'] ?? 0,
         order_id = map['order_id'] ?? 0,
         res_id = map['res_id'] ?? 0,
+        method = map['method'] ?? 0,
         dishes = List<Dish>.from(
           (map['dishes'] as List).map(
                 (item) => Dish.fromMap(item as Map<String, dynamic>),
@@ -40,7 +44,7 @@ class FirebaseModel {
 
   @override
   String toString() {
-    return 'FirebaseModel(order_id: $order_id, customer: $customer, status: $status, total: $total, res_id: $res_id, dishes: $dishes)';
+    return 'FirebaseModel(order_id: $order_id, customer: $customer, status: $status, total: $total, res_id: $res_id, method: $method, dishes: $dishes)';
   }
 }
 
