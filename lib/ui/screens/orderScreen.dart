@@ -767,6 +767,7 @@ class GioHangTab extends StatelessWidget {
       itemBuilder: (context, index) {
         int id = cart.keys.elementAt(index);
         var item = cart[id];
+        print(item);
         return GestureDetector(
           // Sử dụng GestureDetector
           onTap: () {

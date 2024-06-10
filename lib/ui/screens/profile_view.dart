@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:food_app/constants.dart';
 import 'package:food_app/ui/screens/my_order_view.dart';
+import 'package:food_app/ui/screens/orderScreen.dart';
 import 'package:food_app/ui/screens/signin_page.dart';
 import 'package:food_app/ui/widget/common_widget/round_button.dart';
 import 'package:food_app/ui/widget/common_widget/round_textfield.dart';
@@ -30,15 +31,11 @@ class _ProfileViewState extends State<ProfileView> {
     });
   }
 
-  final ImagePicker picker = ImagePicker();
-  XFile? image;
-
   TextEditingController txtName = TextEditingController();
   TextEditingController txtEmail = TextEditingController();
   TextEditingController txtMobile = TextEditingController();
   TextEditingController txtAddress = TextEditingController();
   TextEditingController txtPassword = TextEditingController();
-  TextEditingController txtConfirmPassword = TextEditingController();
 
   var user_id = 0;
   // Lấy user_id
@@ -93,8 +90,21 @@ class _ProfileViewState extends State<ProfileView> {
           txtMobile.text = item.phone ?? '';
           txtAddress.text = item.address ?? '';
           txtPassword.text = '';
-          txtConfirmPassword.text = '';
         });
+      } else {
+        _showSnackBar('Server error. Please try again later.', Colors.red);
+      }
+    } catch (error) {
+      // Xử lý lỗi (nếu có)
+      print(error);
+    }
+  }
+
+  Future<void> update() async {
+    try {
+      ApiResponse response = await UserController().update(item.id.toString(), txtName.text,txtMobile.text,txtEmail.text,txtPassword.text,txtAddress.text, item.role);
+      if (response.statusCode == 200) {
+        print("Update success");
       } else {
         _showSnackBar('Server error. Please try again later.', Colors.red);
       }
@@ -125,10 +135,10 @@ class _ProfileViewState extends State<ProfileView> {
                     ),
                     IconButton(
                       onPressed: () {
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => const MyOrderView()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => OrderScreen()));
                       },
                       icon: Image.asset(
                         "assets/images/shopping-cart.png",
@@ -150,23 +160,14 @@ class _ProfileViewState extends State<ProfileView> {
                   borderRadius: BorderRadius.circular(50),
                 ),
                 alignment: Alignment.center,
-                child: image != null
-                    ? ClipRRect(
-                      borderRadius: BorderRadius.circular(50),
-                     child: Image.file(File(image!.path),
-                      width: 100, height: 100, fit: BoxFit.cover),
-                )
-                    : Icon(
+                child: Icon(
                   Icons.person,
                   size: 65,
                   color: Constants.highlightColor,
                 ),
               ),
               TextButton.icon(
-                onPressed: () async {
-                  image = await picker.pickImage(source: ImageSource.gallery);
-                  setState(() {});
-                },
+                onPressed: (){},
                 icon: Icon(
                   Icons.edit,
                   color: Constants.primaryColor,
@@ -246,21 +247,15 @@ class _ProfileViewState extends State<ProfileView> {
                   controller: txtPassword,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
-                child: RoundTitleTextfield(
-                  title: "Xác nhận mật khẩu",
-                  hintText: "* * * * * *",
-                  obscureText: true,
-                  controller: txtConfirmPassword,
-                ),
-              ),
               const SizedBox(
                 height: 20,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: RoundButton(title: "Save", onPressed: () {}),
+                child: RoundButton(
+                  title: "Save",
+                  onPressed: update,
+                ),
               ),
               const SizedBox(
                 height: 20,

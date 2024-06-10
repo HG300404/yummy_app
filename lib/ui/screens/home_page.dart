@@ -4,6 +4,7 @@ import 'package:food_app/constants.dart';
 import 'package:food_app/db/dishController.dart';
 import 'package:food_app/db/restaurantController.dart';
 import 'package:food_app/ui/screens/my_order_view.dart';
+import 'package:food_app/ui/screens/orderScreen.dart';
 import 'package:food_app/ui/screens/searchPage.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -136,48 +137,16 @@ class _HomePageState extends State<HomePage> {
                     ),
                     IconButton(
                        onPressed: () {
-                         // Navigator.push(
-                         // context,
-                         //     MaterialPageRoute(
-                         //  builder: (context) => const MyOrderView()));
+                         Navigator.push(
+                         context,
+                             MaterialPageRoute(
+                          builder: (context) => OrderScreen()));
                  },
                       icon: Image.asset(
                         "assets/images/shopping-cart.png",
                         width: 25,
                         height: 25,
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Giao hàng tới",
-                      style: TextStyle(color: Constants.textColor, fontSize: 11),
-                    ),
-                    const SizedBox(height: 6),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Vị trí hiện tại",
-                          style: TextStyle(
-                              color: Constants.textColor,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700),
-                        ),
-                        const SizedBox(width: 25),
-                        Image.asset(
-                          "assets/images/dropdown.png",
-                          width: 12,
-                          height: 12,
-                        ),
-                      ],
                     ),
                   ],
                 ),

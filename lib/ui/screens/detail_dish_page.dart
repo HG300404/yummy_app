@@ -76,6 +76,7 @@ class _DetailDishState extends State<DetailDish>
         setState(() {
           Map<String, dynamic> data = jsonDecode(response.body);
           item = Restaurants.fromMap(data);
+          print(item);
         });
       } else {
         _showSnackBar('Server error. Please try again later.', Colors.red);
