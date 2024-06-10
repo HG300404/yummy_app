@@ -313,9 +313,14 @@ class _DetailDishState extends State<DetailDish>
                       bytes = null;
                     }
                   } else {
-                    print(
-                        'Dữ liệu hình ảnh bị hỏng: độ dài không phải là bội số của 4.');
-                    bytes = null;
+                    // Sửa lỗi: Dữ liệu hình ảnh bị hỏng: độ dài không phải là bội số của 4.
+                    base64Image += '=' * ((base64Image.length % 4 - 4) % 4);
+                    try {
+                      bytes = base64Decode(base64Image);
+                    } on FormatException {
+                      print('Không thể giải mã hình ảnh: dữ liệu base64 không hợp lệ.');
+                      bytes = null;
+                    }
                   }
                 } else {
                   bytes = null;
@@ -486,8 +491,7 @@ class _DetailDishState extends State<DetailDish>
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => MyOrderView(resID: widget.resID)),
+                MaterialPageRoute(builder: (context) => MyOrderView(resID: widget.resID)),
               );
             },
             child: Container(
