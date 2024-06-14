@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:food_app/constants.dart';
 
+import '../../screens/detail_dish_page.dart';
 import '../common/color_extension.dart';
 
 class RecentItemRow extends StatelessWidget {
@@ -29,7 +30,14 @@ class RecentItemRow extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
       child: InkWell(
-        onTap: onTap,
+        onTap: (){
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => DetailDish(resID: rObj["res_id"]) //replace with your new page
+              )
+          );
+        },
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
