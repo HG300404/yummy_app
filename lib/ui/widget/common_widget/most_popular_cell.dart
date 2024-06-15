@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:food_app/constants.dart';
 
+import '../../screens/detail_dish_page.dart';
 import '../common/color_extension.dart';
 
 class MostPopularCell extends StatelessWidget {
@@ -17,14 +18,27 @@ class MostPopularCell extends StatelessWidget {
     Uint8List? bytes;
     if (mObj["img"] != null && mObj["img"].startsWith(prefix)) {
       final String base64Image = mObj["img"].substring(prefix.length);
-      bytes = base64Decode(base64Image);
+      try {
+        bytes = base64Decode(base64Image);
+      } catch (e) {
+        bytes = null;
+        print("Unable to decode base64 string: $e");
+      }
     } else {
       bytes = null;
     }
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 8),
       child: InkWell(
-        onTap: onTap,
+        onTap: (){
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => DetailDish(resID: mObj["res_id"]) //replace with your new page
+              )
+          );
+        },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -35,7 +49,12 @@ class MostPopularCell extends StatelessWidget {
                   height: 130,
                   fit: BoxFit.cover,),
             )
-                : CircularProgressIndicator(),
+                : Image.asset(
+              "assets/images/image.png",
+              width: 220,
+              height: 130,
+              fit: BoxFit.cover,
+            ),
             const SizedBox(
               height: 8,
             ),

@@ -199,7 +199,7 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: ViewAllTitleRow(
-                  title: "Top Quán Ăn",
+                  title: "Quán Ăn",
                   onView: () {},
                 ),
               ),
@@ -207,7 +207,7 @@ class _HomePageState extends State<HomePage> {
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 padding: EdgeInsets.zero,
-                itemCount: topRes.length > 3 ? 3 : topRes.length,
+                itemCount: topRes.length,
                 itemBuilder: ((context, index) {
                   var pObj = topRes[index] as Map? ?? {};
                   return PopularRestaurantRow(
